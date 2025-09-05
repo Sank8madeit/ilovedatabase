@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ETL & Data Warehousing | I Love Database</title>
+  <meta name="description" content="Learn ETL (Extract, Transform, Load) and Data Warehousing in a simple, beginner-friendly way with visuals, examples, and an interactive quiz.">
+  <meta name="keywords" content="etl tutorial, data warehousing, snowflake, redshift, star schema, olap, data engineering">
+  <meta name="author" content="I Love Database">
+
+  <!-- External -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent-color: #10b981;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --radius-md: 0.5rem;
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --transition: all 0.2s ease-in-out;
+    }
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-color: #334155;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); transition: var(--transition); }
+    .container { max-width: 1000px; margin: auto; padding: 0 1rem; }
+
+    /* Header */
+    .header { position: sticky; top: 0; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); z-index: 100; }
+    .header-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .logo-link { display: flex; gap: 0.5rem; text-decoration: none; font-weight: 700; font-size: 1.25rem; color: var(--text-primary); }
+    .nav-menu { display: flex; gap: 2rem; list-style: none; }
+    .nav-link { text-decoration: none; color: var(--text-secondary); transition: var(--transition); }
+    .nav-link:hover, .nav-link.active { color: var(--primary-color); }
+    .theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--text-secondary); }
+
+    /* Page */
+    .main-content { padding: 2rem 0; }
+    .page-header { text-align: center; margin-bottom: 2.5rem; }
+    .page-title { font-size: 2.5rem; margin-bottom: 1rem; }
+    .page-subtitle { max-width: 700px; margin: auto; color: var(--text-secondary); }
+
+    /* Sections */
+    .tutorial-section { margin: 3rem 0; }
+    .section-title { font-size: 1.75rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
+    .card { background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
+    pre { background: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md); overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+
+    /* Figure */
+    .figure { display: flex; justify-content: center; align-items: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+    .figure-box { background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--radius-md); text-align: center; width: 200px; }
+    .arrow { font-size: 2rem; color: var(--primary-color); }
+
+    /* Quiz */
+    .quiz-question { margin-bottom: 1.5rem; }
+    .quiz-options label { display: block; margin: 0.5rem 0; padding: 0.5rem 1rem; background: var(--bg-tertiary); border-radius: var(--radius-md); cursor: pointer; transition: var(--transition); }
+    .quiz-options input { display: none; }
+    .quiz-options label:hover { background: var(--primary-color); color: #fff; }
+    .quiz-result { margin-top: 1rem; font-weight: 600; }
+
+    /* CTA */
+    .cta { text-align: center; margin-top: 3rem; padding: 2rem; background: var(--accent-color); color: #fff; border-radius: var(--radius-md); }
+    .cta a { background: #fff; color: var(--accent-color); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); }
+    .cta a:hover { background: #f3f3f3; }
+
+    /* Footer */
+    .footer { background: var(--bg-secondary); padding: 3rem 0 1.5rem; margin-top: 4rem; border-top: 1px solid var(--border-color); }
+    .footer-content { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; margin-bottom: 2rem; }
+    .footer-bottom { text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 2rem; font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html" class="logo-link"><i class="fas fa-database"></i>I Love Database</a>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="tutorials/index.html" class="nav-link">Tutorials</a></li>
+          <li><a href="blog/index.html" class="nav-link">Blog</a></li>
+          <li><a href="etl-data-warehousing.html" class="nav-link active">ETL & DW</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">ETL & Data Warehousing</h1>
+        <p class="page-subtitle">A simple and deep dive into ETL (Extract, Transform, Load) and Data Warehousing. Learn step by step with visuals, examples, and a fun quiz.</p>
+      </div>
+
+      <!-- ETL Basics -->
+      <section class="tutorial-section">
+        <h2 class="section-title">What is ETL?</h2>
+        <div class="card">
+          <p><strong>ETL</strong> stands for <em>Extract, Transform, Load</em>. Think of it like making fruit juice 🥤:</p>
+          <ul>
+            <li><strong>Extract</strong>: Pick fruits from the farm (get raw data from sources).</li>
+            <li><strong>Transform</strong>: Wash, cut, and blend them (clean and format the data).</li>
+            <li><strong>Load</strong>: Pour into a glass (store in a database/warehouse).</li>
+          </ul>
+        </div>
+        <div class="figure">
+          <div class="figure-box">Extract<br>📦 Data Sources</div>
+          <div class="arrow">➡️</div>
+          <div class="figure-box">Transform<br>⚙️ Cleaning & Rules</div>
+          <div class="arrow">➡️</div>
+          <div class="figure-box">Load<br>🏛 Data Warehouse</div>
+        </div>
+      </section>
+
+      <!-- Data Warehousing -->
+      <section class="tutorial-section">
+        <h2 class="section-title">What is a Data Warehouse?</h2>
+        <div class="card">
+          <p>A <strong>Data Warehouse</strong> is like a giant library 📚 for all your company’s data. It collects data from different systems (sales, marketing, finance) and organizes it for reporting and analysis.</p>
+          <p><strong>Popular Warehouses:</strong> Snowflake, Amazon Redshift, Google BigQuery.</p>
+        </div>
+      </section>
+
+      <!-- Advanced -->
+      <section class="tutorial-section">
+        <h2 class="section-title">Advanced Concepts Made Easy</h2>
+        <div class="card">
+          <ul>
+            <li><strong>Staging Area</strong>: A temporary kitchen where raw data is kept before cooking.</li>
+            <li><strong>Star Schema</strong>: A design where one big table (fact) connects to smaller helper tables (dimensions).</li>
+            <li><strong>OLAP</strong>: Online Analytical Processing – fast querying for analysis.</li>
+            <li><strong>ELT vs ETL</strong>: In cloud, data is often loaded first (ELT) and transformed later.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Quiz -->
+      <section class="tutorial-section">
+        <h2 class="section-title">Interactive Quiz</h2>
+        <div class="card">
+          <form id="quiz-form">
+            <div class="quiz-question">
+              <p>1. In ETL, what does "Transform" mean?</p>
+              <div class="quiz-options">
+                <label><input type="radio" name="q1" value="A"> Moving data into storage</label>
+                <label><input type="radio" name="q1" value="B"> Cleaning and formatting data</label>
+                <label><input type="radio" name="q1" value="C"> Taking data from sources</label>
+              </div>
+            </div>
+            <div class="quiz-question">
+              <p>2. Which is a cloud data warehouse?</p>
+              <div class="quiz-options">
+                <label><input type="radio" name="q2" value="A"> MySQL</label>
+                <label><input type="radio" name="q2" value="B"> Snowflake</label>
+                <label><input type="radio" name="q2" value="C"> Redis</label>
+              </div>
+            </div>
+            <div class="quiz-question">
+              <p>3. A star schema connects:</p>
+              <div class="quiz-options">
+                <label><input type="radio" name="q3" value="A"> Facts with dimensions</label>
+                <label><input type="radio" name="q3" value="B"> Fruits with juice</label>
+                <label><input type="radio" name="q3" value="C"> Tables with indexes only</label>
+              </div>
+            </div>
+            <div class="quiz-question">
+              <p>4. ELT differs from ETL because:</p>
+              <div class="quiz-options">
+                <label><input type="radio" name="q4" value="A"> Data is loaded first, then transformed</label>
+                <label><input type="radio" name="q4" value="B"> Data is never transformed</label>
+                <label><input type="radio" name="q4" value="C"> Data is extracted last</label>
+              </div>
+            </div>
+            <div class="quiz-question">
+              <p>5. OLAP is used for:</p>
+              <div class="quiz-options">
+                <label><input type="radio" name="q5" value="A"> Running fast queries for analysis</label>
+                <label><input type="radio" name="q5" value="B"> Storing JSON documents</label>
+                <label><input type="radio" name="q5" value="C"> Backup and recovery</label>
+              </div>
+            </div>
+            <button type="button" onclick="checkQuiz()">Submit Answers</button>
+            <div id="quiz-result" class="quiz-result"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h2>Great Job! 🎉</h2>
+        <p>Now that you understand ETL & Data Warehousing, explore <a href="cloud-databases.html">Cloud Databases</a> or practice <a href="advanced-sql.html">Advanced SQL</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div><h3>I Love Database</h3><p>Your go-to resource for learning database concepts.</p></div>
+        <div><h4>Learning Paths</h4><ul><li><a href="tutorials/sql-basics.html">SQL Basics</a></li><li><a href="nosql.html">NoSQL</a></li><li><a href="cloud-databases.html">Cloud DB</a></li><li><a href="etl-data-warehousing.html">ETL & DW</a></li></ul></div>
+        <div><h4>Resources</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4>Policies</h4><ul><li><a href="about.html#privacy">Privacy Policy</a></li><li><a href="about.html#terms">Terms of Service</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 I Love Database. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = themeToggle.querySelector('i');
+    const savedTheme = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (savedTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      themeIcon.className = 'fas fa-sun';
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+
+    // Quiz
+    function checkQuiz() {
+      let score = 0;
+      const answers = {q1:"B", q2:"B", q3:"A", q4:"A", q5:"A"};
+      for (let q in answers) {
+        const chosen = document.querySelector(`input[name="${q}"]:checked`);
+        if (chosen && chosen.value === answers[q]) score++;
+      }
+      document.getElementById("quiz-result").textContent = `You scored ${score}/5 correct!`;
+    }
+  </script>
+</body>
+</html>
