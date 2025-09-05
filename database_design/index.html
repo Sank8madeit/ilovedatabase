@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Design - I Love Database</title>
+    
+    <!-- External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary-color: #64748b;
+            --accent-color: #8b5cf6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-code: #f8fafc;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --text-inverse: #ffffff;
+            
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --radius-sm: 0.25rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            
+            --transition: all 0.2s ease-in-out;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-code: #1e293b;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --text-inverse: #0f172a;
+            
+            --border-color: #334155;
+            --border-hover: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header Styles */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+            gap: 0.5rem;
+        }
+
+        .logo-link i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .top-nav {
+            display: flex;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            padding-right: 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: var(--transition);
+            font-size: 0.875rem;
+            width: 200px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.25rem;
+            padding: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+
+        .breadcrumb span {
+            margin: 0 0.5rem;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Tutorial Content */
+        .tutorial-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .tutorial-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-content {
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .section-content p {
+            margin-bottom: 1rem;
+        }
+
+        .section-content ul, .section-content ol {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .section-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Code Blocks */
+        .code-preview {
+            background-color: var(--bg-code);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-lang {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.875rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            color: var(--primary-color);
+            background-color: rgba(37, 99, 235, 0.1);
+        }
+
+        .code-preview pre {
+            margin: 0;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .code-preview code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* Diagrams */
+        .diagram {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .diagram-placeholder {
+            background-color: var(--bg-secondary);
+            border-radius: var(--radius-md);
+            padding: 3rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .diagram-caption {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-secondary);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--bg-tertiary);
+        }
+
+        /* Navigation */
+        .tutorial-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .nav-btn.outline:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg-secondary);
+            padding: 3rem 0 1.5rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.875rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background-color: var(--bg-tertiary);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .search-input {
+                width: 150px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .tutorial-nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-actions {
+                gap: 0.5rem;
+            }
+            
+            .search-input {
+                width: 120px;
+            }
+        }
+		
+		
+		/* ER Diagram Styles */
+.er-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 2rem;
+}
+
+.er-table {
+    background: var(--bg-secondary);
+    padding: 15px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    width: 220px;
+    text-align: left;
+}
+
+.er-table-header {
+    font-weight: bold;
+    background: var(--bg-tertiary);
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.er-table-attribute {
+    padding: 4px 0;
+    color: var(--text-secondary);
+}
+
+.er-table-pk {
+    color: var(--warning-color);
+    font-weight: bold;
+}
+
+.er-relationship {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.diagram-caption {
+    margin-top: 10px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../index.html" class="logo-link">
+                    <i class="fas fa-database"></i>
+                    <span>ilovedatabase</span>
+                </a>
+            </div>
+            
+            <nav class="top-nav">
+                <ul class="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../tutorials/index.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+                    <li><a href="../about/" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+               
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="../index.html">Home</a>
+                <span>/</span>
+                <a href="../tutorials/index.html">Tutorials</a>
+                <span>/</span>
+                <a href="../database_design/index.html">Database Design</a>
+            </div>
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Database Design Fundamentals</h1>
+                <p class="page-subtitle">Learn the principles of effective database design including normalization, ER modeling, indexing strategies, and performance optimization techniques.</p>
+            </div>
+
+            <!-- Tutorial Content -->
+            <div class="tutorial-content">
+                <!-- Introduction Section -->
+                <section class="tutorial-section">
+                    <h2 class="section-title">Introduction to Database Design</h2>
+                    <div class="section-content">
+                        <p>Database design is the process of producing a detailed data model of a database. This data model contains all the needed logical and physical design choices and physical storage parameters needed to generate a design.</p>
+                        <p>Good database design is crucial for building scalable, high-performance applications. A well-designed database:</p>
+                        <ul>
+                            <li>Ensures data integrity and accuracy</li>
+                            <li>Reduces data redundancy</li>
+                            <li>Improves query performance</li>
+                            <li>Simplifies application development</li>
+                            <li>Supports future growth and changes</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Database Normalization Section -->
+                <section class="tutorial-section">
+                    <h2 class="section-title">Database Normalization</h2>
+                    <div class="section-content">
+                        <p>Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. The process involves dividing large tables into smaller, related tables and defining relationships between them.</p>
+                        
+                        <div class="card">
+                            <h3 class="card-title">Normal Forms</h3>
+                            <p>The normalization process is typically done through "normal forms," each with specific requirements:</p>
+                            <ul>
+                                <li><strong>First Normal Form (1NF)</strong>: Eliminate repeating groups, ensure atomicity</li>
+                                <li><strong>Second Normal Form (2NF)</strong>: Remove partial dependencies</li>
+                                <li><strong>Third Normal Form (3NF)</strong>: Remove transitive dependencies</li>
+                                <li><strong>Boyce-Codd Normal Form (BCNF)</strong>: Stricter version of 3NF</li>
+                                <li><strong>Fourth Normal Form (4NF)</strong>: Remove multi-valued dependencies</li>
+                            </ul>
+                        </div>
+
+                        <h3>Example: Normalization Process</h3>
+                        <p>Let's consider an example of an unnormalized table and how we would normalize it:</p>
+                        
+                        <div class="code-preview">
+                            <div class="code-header">
+                                <span class="code-lang">SQL</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-sql">-- Unnormalized table (all in one)
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    customer_email VARCHAR(100),
+    product_name VARCHAR(100),
+    product_category VARCHAR(50),
+    order_date DATE,
+    quantity INT,
+    price DECIMAL(10,2)
+);
+
+-- Normalized tables
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    category VARCHAR(50),
+    price DECIMAL(10,2)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    order_date DATE,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ER Diagrams Section -->
+                <section class="tutorial-section">
+                    <h2 class="section-title">ER Diagrams (Entity-Relationship)</h2>
+                    <div class="section-content">
+                        <p>Entity-Relationship (ER) diagrams are visual representations of database structure. They show the entities (tables), their attributes (columns), and the relationships between entities.</p>
+                        
+                      <div class="diagram">
+  <div class="er-diagram">
+    <!-- Customer Entity -->
+    <div class="er-table">
+      <div class="er-table-header">Customer</div>
+      <div class="er-table-attribute er-table-pk">customer_id (PK)</div>
+      <div class="er-table-attribute">first_name</div>
+      <div class="er-table-attribute">last_name</div>
+      <div class="er-table-attribute">email</div>
+      <div class="er-table-attribute">phone</div>
+    </div>
+
+    <div class="er-relationship">
+      <i class="fas fa-arrow-right"></i> places <i class="fas fa-arrow-left"></i>
+    </div>
+
+    <!-- Order Entity -->
+    <div class="er-table">
+      <div class="er-table-header">Order</div>
+      <div class="er-table-attribute er-table-pk">order_id (PK)</div>
+      <div class="er-table-attribute">order_date</div>
+      <div class="er-table-attribute">total_amount</div>
+      <div class="er-table-attribute er-table-pk">customer_id (FK)</div>
+    </div>
+
+    <div class="er-relationship">
+      <i class="fas fa-arrow-right"></i> contains <i class="fas fa-arrow-left"></i>
+    </div>
+
+    <!-- OrderItem Entity -->
+    <div class="er-table">
+      <div class="er-table-header">OrderItem</div>
+      <div class="er-table-attribute er-table-pk">order_item_id (PK)</div>
+      <div class="er-table-attribute">quantity</div>
+      <div class="er-table-attribute">price</div>
+      <div class="er-table-attribute er-table-pk">order_id (FK)</div>
+      <div class="er-table-attribute er-table-pk">product_id (FK)</div>
+    </div>
+
+    <div class="er-relationship">
+      <i class="fas fa-arrow-right"></i> references <i class="fas fa-arrow-left"></i>
+    </div>
+
+    <!-- Product Entity -->
+    <div class="er-table">
+      <div class="er-table-header">Product</div>
+      <div class="er-table-attribute er-table-pk">product_id (PK)</div>
+      <div class="er-table-attribute">name</div>
+      <div class="er-table-attribute">description</div>
+      <div class="er-table-attribute">price</div>
+      <div class="er-table-attribute">category_id</div>
+    </div>
+  </div>
+
+  <p class="diagram-caption">Example of an ER diagram for an e-commerce database</p>
+</div>
+
+
+                        <div class="card">
+                            <h3 class="card-title">ER Diagram Components</h3>
+                            <ul>
+                                <li><strong>Entities</strong>: Represent real-world objects (e.g., Customer, Product)</li>
+                                <li><strong>Attributes</strong>: Properties of entities (e.g., customer_id, name)</li>
+                                <li><strong>Relationships</strong>: Associations between entities (e.g., places, contains)</li>
+                                <li><strong>Cardinality</strong>: Defines the numerical relationship between entities (e.g., one-to-many, many-to-many)</li>
+                            </ul>
+                        </div>
+
+                        <h3>Relationship Types</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Relationship Type</th>
+                                        <th>Description</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>One-to-One (1:1)</td>
+                                        <td>One instance of Entity A is associated with one instance of Entity B</td>
+                                        <td>User and UserProfile</td>
+                                    </tr>
+                                    <tr>
+                                        <td>One-to-Many (1:N)</td>
+                                        <td>One instance of Entity A is associated with multiple instances of Entity B</td>
+                                        <td>Customer and Orders</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Many-to-Many (M:N)</td>
+                                        <td>Multiple instances of Entity A are associated with multiple instances of Entity B</td>
+                                        <td>Students and Courses</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Index Optimization Section -->
+                <section class="tutorial-section">
+                    <h2 class="section-title">Index Optimization</h2>
+                    <div class="section-content">
+                        <p>Indexes are special data structures that improve the speed of data retrieval operations on database tables. Proper index design is crucial for database performance.</p>
+                        
+                        <div class="card">
+                            <h3 class="card-title">Index Types</h3>
+                            <ul>
+                                <li><strong>B-tree indexes</strong>: Most common type, good for range queries</li>
+                                <li><strong>Hash indexes</strong>: Best for equality comparisons</li>
+                                <li><strong>Bitmap indexes</strong>: Useful for columns with low cardinality</li>
+                                <li><strong>Full-text indexes</strong>: Designed for text search operations</li>
+                                <li><strong>Composite indexes</strong>: Indexes on multiple columns</li>
+                            </ul>
+                        </div>
+
+                        <h3>Best Practices for Indexing</h3>
+                        <ul>
+                            <li>Index columns frequently used in WHERE clauses</li>
+                            <li>Index columns used in JOIN operations</li>
+                            <li>Consider composite indexes for multi-column queries</li>
+                            <li>Avoid over-indexing as it slows down write operations</li>
+                            <li>Regularly monitor and maintain indexes</li>
+                        </ul>
+
+                        <div class="code-preview">
+                            <div class="code-header">
+                                <span class="code-lang">SQL</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-sql">-- Creating indexes
+CREATE INDEX idx_customers_email ON customers(email);
+CREATE INDEX idx_orders_customer_date ON orders(customer_id, order_date DESC);
+
+-- Composite index for often-queried combinations
+CREATE INDEX idx_products_category_price ON products(category, price);
+
+-- Unique index to enforce uniqueness
+CREATE UNIQUE INDEX idx_users_username ON users(username);
+
+-- Analyzing query performance
+EXPLAIN ANALYZE 
+SELECT * FROM orders 
+WHERE customer_id = 123 
+AND order_date > '2023-01-01';</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Optimization Section -->
+                <section class="tutorial-section">
+                    <h2 class="section-title">Performance Optimization</h2>
+                    <div class="section-content">
+                        <p>Database performance optimization involves various techniques to improve the speed and efficiency of database operations.</p>
+                        
+                        <h3>Query Optimization</h3>
+                        <ul>
+                            <li>Use appropriate WHERE clauses to limit results</li>
+                            <li>Avoid SELECT * - only retrieve needed columns</li>
+                            <li>Use JOINs instead of subqueries when possible</li>
+                            <li>Limit the use of wildcards at the beginning of LIKE patterns</li>
+                            <li>Utilize pagination for large result sets</li>
+                        </ul>
+
+                        <h3>Database Structure Optimization</h3>
+                        <ul>
+                            <li>Choose appropriate data types for columns</li>
+                            <li>Use vertical partitioning for wide tables</li>
+                            <li>Consider denormalization for read-heavy workloads</li>
+                            <li>Implement partitioning for large tables</li>
+                            <li>Use appropriate storage engines</li>
+                        </ul>
+
+                        <div class="code-preview">
+                            <div class="code-header">
+                                <span class="code-lang">SQL</span>
+                                <button class="copy-btn"><i class="fas fa-copy"></i> Copy</button>
+                            </div>
+                            <pre><code class="language-sql">-- Example of an optimized query
+-- Instead of:
+SELECT * FROM orders WHERE YEAR(order_date) = 2023;
+
+-- Use:
+SELECT order_id, customer_id, order_date, total_amount 
+FROM orders 
+WHERE order_date >= '2023-01-01' 
+AND order_date < '2024-01-01';
+
+-- Instead of:
+SELECT * FROM products WHERE product_name LIKE '%apple%';
+
+-- Use (if possible):
+SELECT * FROM products WHERE product_name LIKE 'apple%';
+
+-- Using pagination for large results
+SELECT * FROM orders 
+ORDER BY order_date DESC 
+LIMIT 50 OFFSET 100;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tutorial Navigation -->
+                <div class="tutorial-nav">
+                    <a href="../tutorials/sql-basics/index.html" class="nav-btn outline">
+                        <i class="fas fa-arrow-left"></i> SQL Basics
+                    </a>
+                    <a href="../database_design/advanced_sql.html" class="nav-btn">
+                        Advanced SQL <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>I Love Database</h3>
+                    <p>Your comprehensive resource for mastering database concepts and technologies.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Learning Paths</h4>
+                    <ul>
+                        <li><a href="tutorials/sql-basics/index.html">SQL Basics</a></li>
+                        <li><a href="../database_design/advanced_sql.html">Advanced SQL</a></li>
+                        <li><a href="tutorials/nosql/index.html">NoSQL Databases</a></li>
+                        <li><a href="tutorials/cloud-databases/index.html">Cloud Databases</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="tutorials/index.html">All Tutorials</a></li>
+                        <li><a href="blog/index.html">Blog</a></li>
+                        <li><a href="about/index.html">About</a></li>
+                        <li><a href="contact/index.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="help/index.html">Help Center</a></li>
+                        <li><a href="privacy/index.html">Privacy Policy</a></li>
+                        <li><a href="terms/index.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 I Love Database. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme') || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.className = 'fas fa-sun';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+        // Copy Code Functionality
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const codeBlock = button.closest('.code-preview').querySelector('code');
+                const textArea = document.createElement('textarea');
+                textArea.value = codeBlock.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // Visual feedback
+                const originalHtml = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => {
+                    button.innerHTML = originalHtml;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
