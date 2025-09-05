@@ -99,6 +99,7 @@ class ILoveDatabase {
                 <li><a href="./index.html" class="mobile-nav-link">Home</a></li>
                 <li><a href="tutorials/index.html" class="mobile-nav-link">Tutorials</a></li>
                 <li><a href="tutorials/sql-basics/index.html" class="mobile-nav-link">SQL Basics</a></li>
+                <li><a href="ebook/index.html" class="mobile-nav-link">Ebooks</a></li>
                 <li><a href="/tutorials/advanced-sql/" class="mobile-nav-link">Advanced SQL</a></li>
                 <li><a href="/tutorials/nosql/" class="mobile-nav-link">NoSQL</a></li>
                 <li><a href="/tutorials/cloud-databases/" class="mobile-nav-link">Cloud Databases</a></li>
