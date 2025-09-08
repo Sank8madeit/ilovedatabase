@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://ilovedatabase.com/</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/tutorials/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/blog/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/ebook/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/tutorials/sql-basics/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/database_design/advanced_sql.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/nosql/nosql.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/cloud-databases/cloud.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/database_design/index.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/etl_dw/etl_dw.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/about/about.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/contact/contact.html</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/blog/</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/tutorials/sql-basics/</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://ilovedatabase.com/tutorials/</loc>
+  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
