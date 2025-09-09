@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Advanced SQL Tutorial & Examples | I Love Database</title>
@@ -759,13 +770,41 @@ SELECT * FROM employee_hierarchy;</code></pre>
 
       <!-- Tutorial Navigation -->
       <div class="tutorial-nav">
-        <a href="sql-basics.html" class="nav-btn outline"><i class="fas fa-arrow-left"></i> SQL Basics</a>
-        <a href="database-design.html" class="nav-btn">Database Design <i class="fas fa-arrow-right"></i></a>
+        <a href="../tutorials/sql-basics/index.html" class="nav-btn outline"><i class="fas fa-arrow-left"></i> SQL Basics</a>
+        <a href="../database_design/index.html" class="nav-btn">Database Design <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </main>
 
   <script>
+  
+  
+      // Theme Toggle Functionality
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or respect OS preference
+        const savedTheme = localStorage.getItem('theme') || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the saved theme
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.className = 'fas fa-sun';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+        
+  
+  
     // Copy to Clipboard
     document.querySelectorAll('.copy-btn').forEach(button => {
       button.addEventListener('click', () => {
