@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Complete database tutorials and learning paths. Master SQL, NoSQL, cloud databases, and data engineering with comprehensive guides and examples.">
     <meta name="keywords" content="database tutorials, SQL course, NoSQL guide, cloud database training, data engineering, BigQuery, MongoDB, database design">
-    <title>Database Tutorials - Complete Learning Guide | I Love Database</title>
+    <title>Database Tutorials - Complete Learning Guide | ilovedatabase</title>
     
     <!-- External Libraries -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -49,9 +59,9 @@
     <header class="header">
         <div class="header-container">
             <div class="logo">
-                <a href="/" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <i class="fas fa-database"></i>
-                    <span>I Love Database</span>
+                    <span>ilovedatabase</span>
                 </a>
             </div>
             
@@ -59,16 +69,15 @@
                 <ul class="nav-menu">
                     <li><a href="../index.html" class="nav-link">Home</a></li>
                     <li><a href="../tutorials/index.html" class="nav-link active">Tutorials</a></li>
-                    <li><a href="/blog/" class="nav-link">Blog</a></li>
-                    <li><a href="/about/" class="nav-link">About</a></li>
+                    <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+					<li><a href="../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    <li><a href="../about/about.html" class="nav-link">About</a></li>
+					
                 </ul>
             </nav>
             
             <div class="header-actions">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search tutorials...">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
+              
                 <button class="theme-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -171,7 +180,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="nosql/" class="course-card">
+                            <a href="../nosql/nosql.html" class="course-card">
                                 <div class="course-icon">
                                     <i class="fas fa-leaf"></i>
                                 </div>
@@ -200,7 +209,7 @@
                         </div>
                         <p class="path-description">Master cloud databases, data warehousing, and enterprise-level data engineering.</p>
                         <div class="path-courses">
-                            <a href="cloud-databases/" class="course-card">
+                            <a href="../cloud-databases/cloud.html" class="course-card">
                                 <div class="course-icon">
                                     <i class="fas fa-cloud"></i>
                                 </div>
@@ -213,7 +222,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="etl-data-warehousing/" class="course-card">
+                            <a href="../etl_dw/etl_dw.html" class="course-card">
                                 <div class="course-icon">
                                     <i class="fas fa-exchange-alt"></i>
                                 </div>
@@ -255,7 +264,7 @@
                                 <span class="difficulty beginner">Beginner</span>
                             </div>
                             <h3 class="tutorial-title">
-                                <a href="sql-basics/">SQL Fundamentals</a>
+                                <a href="../tutorials/sql-basics/index.html">SQL Fundamentals</a>
                             </h3>
                             <p class="tutorial-description">Learn the basics of SQL including SELECT statements, filtering, sorting, and basic joins.</p>
                             <div class="tutorial-stats">
@@ -297,7 +306,7 @@
                                 <span class="difficulty intermediate">Intermediate</span>
                             </div>
                             <h3 class="tutorial-title">
-                                <a href="nosql/">NoSQL Databases</a>
+                                <a href="../nosql/nosql.html">NoSQL Databases</a>
                             </h3>
                             <p class="tutorial-description">Explore MongoDB, Redis, and Cassandra with practical examples and use cases.</p>
                             <div class="tutorial-stats">
@@ -318,7 +327,7 @@
                                 <span class="difficulty advanced">Advanced</span>
                             </div>
                             <h3 class="tutorial-title">
-                                <a href="cloud-databases/">Cloud Database Mastery</a>
+                                <a href="../cloud-databases/cloud.html">Cloud Database Mastery</a>
                             </h3>
                             <p class="tutorial-description">Master BigQuery, Snowflake, Redshift, and Azure Synapse for cloud-scale analytics.</p>
                             <div class="tutorial-stats">
@@ -360,7 +369,7 @@
                                 <span class="difficulty advanced">Advanced</span>
                             </div>
                             <h3 class="tutorial-title">
-                                <a href="etl-data-warehousing/">ETL & Data Warehousing</a>
+                                <a href="../etl_dw/etl_dw.html">ETL & Data Warehousing</a>
                             </h3>
                             <p class="tutorial-description">Build efficient data pipelines and design scalable data warehouse architectures.</p>
                             <div class="tutorial-stats">
@@ -380,7 +389,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>I Love Database</h3>
+                    <h3>ilovedatabase</h3>
                     <p>Your comprehensive resource for mastering database concepts and technologies.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -392,35 +401,29 @@
                 <div class="footer-section">
                     <h4>Learning Paths</h4>
                     <ul>
-                        <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
-                        <li><a href="/tutorials/advanced-sql/">Advanced SQL</a></li>
-                        <li><a href="/tutorials/nosql/">NoSQL Databases</a></li>
-                        <li><a href="/tutorials/cloud-databases/">Cloud Databases</a></li>
+                         <li><a href="../tutorials/sql-basics/index.html">SQL Basics</a></li>
+                        <li><a href="../database_design/index.html">Advanced SQL</a></li>
+                        <li><a href="../nosql/nosql.html">NoSQL Databases</a></li>
+                        <li><a href="../cloud-databases/cloud.html">Cloud Databases</a></li>
+						<li><a href="../etl_dw/etl_dw.html">ETL & Data Warehousing</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="/tutorials/">All Tutorials</a></li>
-                        <li><a href="/blog/">Blog</a></li>
-                        <li><a href="/about/">About</a></li>
-                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="../tutorials/index.html">All Tutorials</a></li>
+                        <li><a href="../blog/index.html">Blog</a></li>
+                        <li><a href="../about/about.html">About</a></li>
+                        <li><a href="../contact/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="/help/">Help Center</a></li>
-                        <li><a href="/privacy/">Privacy Policy</a></li>
-                        <li><a href="/terms/">Terms of Service</a></li>
-                    </ul>
-                </div>
+             
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 I Love Database. All rights reserved.</p>
+                <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
             </div>
         </div>
     </footer>
