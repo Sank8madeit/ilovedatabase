@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Database insights, tutorials, and industry trends. Stay updated with the latest in SQL, NoSQL, cloud databases, and data engineering best practices.">
     <meta name="keywords" content="database blog, SQL tips, NoSQL insights, database optimization, data engineering, cloud database trends">
-    <title>Database Blog - Insights & Tutorials | I Love Database</title>
+    <title>Database Blog - Insights & Tutorials | ilovedatabase</title>
     
     <!-- External Libraries -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -21,41 +31,39 @@
     {
         "@context": "https://schema.org",
         "@type": "Blog",
-        "name": "I Love Database Blog",
+        "name": "ilovedatabase Blog",
         "description": "Database insights, tutorials, and industry trends",
         "url": "https://ilovedatabase.com/blog/",
         "publisher": {
             "@type": "Organization",
-            "name": "I Love Database"
+            "name": "ilovedatabase"
         }
     }
     </script>
 </head>
 <body>
-    <!-- Header -->
+       <!-- Header -->
     <header class="header">
         <div class="header-container">
             <div class="logo">
-                <a href="/" class="logo-link">
+                <a href="../index.html" class="logo-link">
                     <i class="fas fa-database"></i>
-                    <span>I Love Database</span>
+                    <span>ilovedatabase</span>
                 </a>
             </div>
             
             <nav class="top-nav">
                 <ul class="nav-menu">
-                    <li><a href="/" class="nav-link">Home</a></li>
-                    <li><a href="/tutorials/" class="nav-link">Tutorials</a></li>
-                    <li><a href="/blog/" class="nav-link active">Blog</a></li>
-                    <li><a href="/about/" class="nav-link">About</a></li>
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../tutorials/index.html" class="nav-link active">Tutorials</a></li>
+                    <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+					<li><a href="../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    <li><a href="../about/about.html" class="nav-link">About</a></li>
                 </ul>
             </nav>
             
             <div class="header-actions">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search articles...">
-                    <button class="search-btn"><i class="fas fa-search"></i></button>
-                </div>
+              
                 <button class="theme-toggle" aria-label="Toggle dark mode">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -66,15 +74,8 @@
         </div>
     </header>
 
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-        <div class="container">
-            <ol class="breadcrumb-list">
-                <li><a href="/">Home</a></li>
-                <li><span>Blog</span></li>
-            </ol>
-        </div>
-    </nav>
+    
+  
 
     <!-- Main Content -->
     <main class="main-content">
@@ -355,13 +356,12 @@
             </div>
         </div>
     </main>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>I Love Database</h3>
+                    <h3>ilovedatabase</h3>
                     <p>Your comprehensive resource for mastering database concepts and technologies.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -371,37 +371,31 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Blog Categories</h4>
+                    <h4>Learning Paths</h4>
                     <ul>
-                        <li><a href="/blog/category/sql/">SQL Tutorials</a></li>
-                        <li><a href="/blog/category/nosql/">NoSQL Guides</a></li>
-                        <li><a href="/blog/category/cloud-databases/">Cloud Databases</a></li>
-                        <li><a href="/blog/category/performance/">Performance Tips</a></li>
+                         <li><a href="../tutorials/sql-basics/index.html">SQL Basics</a></li>
+                        <li><a href="../database_design/index.html">Advanced SQL</a></li>
+                        <li><a href="../nosql/nosql.html">NoSQL Databases</a></li>
+                        <li><a href="../cloud-databases/cloud.html">Cloud Databases</a></li>
+						<li><a href="../etl_dw/etl_dw.html">ETL & Data Warehousing</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Resources</h4>
                     <ul>
-                        <li><a href="/tutorials/">All Tutorials</a></li>
-                        <li><a href="/blog/">Blog</a></li>
-                        <li><a href="/about/">About</a></li>
-                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="../tutorials/index.html">All Tutorials</a></li>
+                        <li><a href="../blog/index.html">Blog</a></li>
+                        <li><a href="../about/about.html">About</a></li>
+                        <li><a href="../contact/contact.html">Contact</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-section">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="/help/">Help Center</a></li>
-                        <li><a href="/privacy/">Privacy Policy</a></li>
-                        <li><a href="/terms/">Terms of Service</a></li>
-                    </ul>
-                </div>
+             
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 I Love Database. All rights reserved.</p>
+                <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
             </div>
         </div>
     </footer>
