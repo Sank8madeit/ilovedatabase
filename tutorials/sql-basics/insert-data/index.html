@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn SQL INSERT statement to add new records into a table. Covers single-row, multi-row, and insert with SELECT.">
+    <meta name="keywords" content="SQL insert, insert into, SQL add data, insert multiple rows, SQL tutorial">
+    <title>SQL Basics - Lesson 9: Inserting Data | ilovedatabase</title>
+
+    <!-- External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/responsive.css">
+    <link rel="stylesheet" href="../../../css/tutorial.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../../../index.html" class="logo-link">
+                    <i class="fas fa-database"></i>
+                    <span>ilovedatabase</span>
+                </a>
+            </div>
+
+            <nav class="top-nav">
+                <ul class="nav-menu">
+                    <li><a href="../../../index.html" class="nav-link">Home</a></li>
+                    	<li><a href="../../../tutorials/index.html" class="nav-link active">Tutorials</a></li>
+                    	<li><a href="../../../blog/index.html" class="nav-link">Blog</a></li>
+			<li><a href="../../../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    	<li><a href="../../../about/about.html" class="nav-link">About</a></li>
+
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../../../tutorials/index.html">Tutorials</a></li>
+                <li><a href="../../../tutorials/sql-basics/introduction/index.html">SQL Basics</a></li>
+
+                <li><span>Inserting Data</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="tutorial-layout">
+        <!-- Sidebar -->
+        <aside class="tutorial-sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                <span class="progress-text">Lesson 9 of 12</span>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Outline</h3>
+                <ul class="sidebar-nav">
+                    <li><a href="../introduction/index.html" class="active">1. Introduction to SQL</a></li>
+                    <li><a href="../basic-select/index.html">2. Basic SELECT Statements</a></li>
+                    <li><a href="../filtering-data/index.html">3. Filtering Data with WHERE</a></li>
+                    <li><a href="../sorting-data/index.html">4. Sorting Data with ORDER BY</a></li>
+                    <li><a href="../aggregate-functions/index.html">5. Aggregate Functions</a></li>
+                    <li><a href="../grouping-data/index.html">6. Grouping Data</a></li>
+                    <li><a href="../joins/index.html">7. Table Joins</a></li>
+                    <li><a href="../subqueries/index.html">8. Subqueries</a></li>
+                    <li><a href="index.html">9. Inserting Data</a></li>
+                    <li><a href="../update-data/index.html">10. Updating Data</a></li>
+                    <li><a href="../delete-data/index.html">11. Deleting Data</a></li>
+                    <li><a href="../practice-exercises/index.html">12. Practice Exercises</a></li>
+
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Tutorial Content -->
+        <article class="tutorial-content">
+            <div class="tutorial-header">
+                <h1>Lesson 9: Inserting Data</h1>
+                <div class="tutorial-meta-info">
+                    <span><i class="fas fa-clock"></i> 20 min read</span>
+                    <span><i class="fas fa-signal"></i> Beginner</span>
+                    <span><i class="fas fa-bookmark"></i> Lesson 9 of 12</span>
+                    <span><i class="fas fa-users"></i> 8.1k learners</span>
+                </div>
+            </div>
+
+            <div class="tutorial-body">
+                <!-- Section: Introduction -->
+                <section>
+                    <h2>Introduction</h2>
+                    <p>The <code>INSERT INTO</code> statement is used to add new rows of data into a table. It’s essential for populating tables with information.</p>
+                </section>
+
+                <!-- Single-row insert -->
+                <section>
+                    <h2>Insert a Single Row</h2>
+                    <p>Specify column names and provide values for those columns.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+<pre><code class="language-sql">INSERT INTO customers (first_name, last_name, email, city)
+VALUES ('Alice', 'Brown', 'alice.brown@email.com', 'Boston');</code></pre>
+                    </div>
+                </section>
+
+                <!-- Multiple-row insert -->
+                <section>
+                    <h2>Insert Multiple Rows</h2>
+                    <p>Use a single <code>INSERT</code> statement with multiple sets of values.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+<pre><code class="language-sql">INSERT INTO customers (first_name, last_name, email, city)
+VALUES 
+('Tom', 'Evans', 'tom.evans@email.com', 'Chicago'),
+('Emma', 'Wilson', 'emma.wilson@email.com', 'Seattle');</code></pre>
+                    </div>
+                </section>
+
+                <!-- Insert using SELECT -->
+                <section>
+                    <h2>Insert Data from Another Table</h2>
+                    <p>Copy data from one table into another using <code>INSERT ... SELECT</code>.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+<pre><code class="language-sql">INSERT INTO archived_customers (first_name, last_name, email)
+SELECT first_name, last_name, email
+FROM customers
+WHERE city = 'Chicago';</code></pre>
+                    </div>
+                </section>
+
+                <!-- Handling NULLs -->
+                <section>
+                    <h2>Handling NULL and DEFAULT Values</h2>
+                    <p>If a column allows <code>NULL</code>, you can skip it. If a column has a <code>DEFAULT</code> value, it will be automatically applied if not provided.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+<pre><code class="language-sql">INSERT INTO customers (first_name, last_name)
+VALUES ('Sam', 'Taylor');</code></pre>
+                    </div>
+                </section>
+
+                <!-- Quiz -->
+                <section id="practice-exercise">
+                    <h2>Practice Quiz</h2>
+                    <p>Test your knowledge of INSERT statements:</p>
+
+                    <div class="quiz-container">
+                        <form class="quiz-form">
+
+                            <div class="quiz-question">1. Which keyword is used to add new records?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q1" id="q1a"><label for="q1a">ADD</label></li>
+                                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">INSERT</label></li>
+                                <li><input type="radio" name="q1" id="q1c"><label for="q1c">UPDATE</label></li>
+                            </ul>
+
+                            <div class="quiz-question">2. Can you insert multiple rows in one statement?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q2" id="q2a" data-correct="true"><label for="q2a">Yes</label></li>
+                                <li><input type="radio" name="q2" id="q2b"><label for="q2b">No</label></li>
+                            </ul>
+
+                            <div class="quiz-question">3. What does INSERT ... SELECT do?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q3" id="q3a"><label for="q3a">Deletes rows</label></li>
+                                <li><input type="radio" name="q3" id="q3b" data-correct="true"><label for="q3b">Copies data from another table</label></li>
+                                <li><input type="radio" name="q3" id="q3c"><label for="q3c">Updates existing rows</label></li>
+                            </ul>
+
+                            <div class="quiz-question">4. What happens if you omit a column with a DEFAULT value?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q4" id="q4a"><label for="q4a">Error</label></li>
+                                <li><input type="radio" name="q4" id="q4b" data-correct="true"><label for="q4b">Default value is inserted</label></li>
+                                <li><input type="radio" name="q4" id="q4c"><label for="q4c">NULL is inserted</label></li>
+                            </ul>
+
+                            <div class="quiz-question">5. Which clause specifies the target table in an INSERT?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q5" id="q5a" data-correct="true"><label for="q5a">INTO</label></li>
+                                <li><input type="radio" name="q5" id="q5b"><label for="q5b">FROM</label></li>
+                                <li><input type="radio" name="q5" id="q5c"><label for="q5c">VALUES</label></li>
+                            </ul>
+
+                            <button type="button" class="quiz-submit">Check Answers</button>
+                            <div class="quiz-feedback" style="display: none;"></div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="tutorial-nav">
+                <a href="../subqueries/index.html" class="nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    Previous: Subqueries
+                </a>
+                <a href="../update-data/index.html" class="nav-btn">
+                    Next: Updating Data
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ilovedatabase</h3>
+                    <p>Your comprehensive resource for mastering database concepts and technologies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>SQL Basics Course</h4>
+                    <ul>
+                        <li><a href="../introduction/index.html">Introduction to SQL</a></li>
+                        <li><a href="../subqueries/index.html">Subqueries</a></li>
+                        <li><a href="../insert-data/index.html">Inserting Data</a></li>
+                        <li><a href="../update-data/index.html">Updating Data</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="../../../js/tutorial-quiz.js"></script>
+<script src="../../../js/main.js"></script>
+</body>
+</html>

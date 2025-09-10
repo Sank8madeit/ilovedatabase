@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Final SQL Basics practice exercises with 20 quiz questions covering SELECT, WHERE, ORDER BY, GROUP BY, Joins, Subqueries, and CRUD operations.">
+  <meta name="keywords" content="SQL practice quiz, SQL exercises, SQL multiple choice questions, SQL basics test">
+  <title>SQL Basics - Lesson 12: Practice Exercises | ilovedatabase</title>
+
+  <!-- External Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="../../../css/main.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <link rel="stylesheet" href="../../../css/tutorial.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+                <a href="../../../index.html" class="logo-link">
+                    <i class="fas fa-database"></i>
+                    <span>ilovedatabase</span>
+                </a>
+            </div>
+
+            <nav class="top-nav">
+                <ul class="nav-menu">
+                     	<li><a href="../../../index.html" class="nav-link">Home</a></li>
+                    	<li><a href="../../../tutorials/index.html" class="nav-link active">Tutorials</a></li>
+                    	<li><a href="../../../blog/index.html" class="nav-link">Blog</a></li>
+			<li><a href="../../../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    	<li><a href="../../../about/about.html" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+
+
+      <div class="header-actions">
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../../../tutorials/index.html">Tutorials</a></li>
+                <li><a href="../../../tutorials/sql-basics/introduction/index.html">SQL Basics</a></li>
+
+        <li><span>Practice Exercises</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="tutorial-layout">
+    <!-- Sidebar -->
+    <aside class="tutorial-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Course Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 100%"></div>
+        </div>
+        <span class="progress-text">Lesson 12 of 12</span>
+      </div>
+
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Course Outline</h3>
+        <ul class="sidebar-nav">
+          <li><a href="../introduction/index.html" class="active">1. Introduction to SQL</a></li>
+                    <li><a href="../basic-select/index.html">2. Basic SELECT Statements</a></li>
+                    <li><a href="../filtering-data/index.html">3. Filtering Data with WHERE</a></li>
+                    <li><a href="../sorting-data/index.html">4. Sorting Data with ORDER BY</a></li>
+                    <li><a href="../aggregate-functions/index.html">5. Aggregate Functions</a></li>
+                    <li><a href="../grouping-data/index.html">6. Grouping Data</a></li>
+                    <li><a href="../joins/index.html">7. Table Joins</a></li>
+                    <li><a href="../subqueries/index.html">8. Subqueries</a></li>
+                    <li><a href="../insert-data/index.html">9. Inserting Data</a></li>
+                    <li><a href="../update-data/index.html">10. Updating Data</a></li>
+                    <li><a href="../delete-data/index.html">11. Deleting Data</a></li>
+                    <li><a href="index.html">12. Practice Exercises</a></li>
+
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Tutorial Content -->
+    <article class="tutorial-content">
+      <div class="tutorial-header">
+        <h1>Lesson 12: Practice Exercises</h1>
+        <div class="tutorial-meta-info">
+          <span><i class="fas fa-clock"></i> 40 min test</span>
+          <span><i class="fas fa-signal"></i> Beginner–Intermediate</span>
+          <span><i class="fas fa-bookmark"></i> Final Lesson</span>
+          <span><i class="fas fa-users"></i> 8.9k learners</span>
+        </div>
+      </div>
+
+      <div class="tutorial-body">
+        <section>
+          <h2>Final SQL Basics Quiz</h2>
+          <p>This final exercise contains <strong>20 questions</strong> covering everything from Lesson 1 to 11. Try to complete it without peeking back! 🎯</p>
+        </section>
+
+        <!-- Quiz -->
+        <section id="final-quiz">
+          <div class="quiz-container">
+            <form class="quiz-form">
+
+              <!-- Q1–20 -->
+              <div class="quiz-question">1. Which of the following is the correct definition of SQL?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q1" id="q1a"><label for="q1a">Simple Query Language</label></li>
+                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">Structured Query Language</label></li>
+                <li><input type="radio" name="q1" id="q1c"><label for="q1c">Sequential Query Language</label></li>
+              </ul>
+
+              <div class="quiz-question">2. Which type of database model does SQL primarily interact with?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q2" id="q2a" data-correct="true"><label for="q2a">Relational Database</label></li>
+                <li><input type="radio" name="q2" id="q2b"><label for="q2b">Hierarchical Database</label></li>
+                <li><input type="radio" name="q2" id="q2c"><label for="q2c">NoSQL</label></li>
+              </ul>
+
+              <div class="quiz-question">3. Which SQL keyword retrieves data?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q3" id="q3a"><label for="q3a">GET</label></li>
+                <li><input type="radio" name="q3" id="q3b" data-correct="true"><label for="q3b">SELECT</label></li>
+                <li><input type="radio" name="q3" id="q3c"><label for="q3c">SHOW</label></li>
+              </ul>
+
+              <div class="quiz-question">4. What does <code>SELECT *</code> mean?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q4" id="q4a"><label for="q4a">Select first row</label></li>
+                <li><input type="radio" name="q4" id="q4b" data-correct="true"><label for="q4b">Select all columns</label></li>
+                <li><input type="radio" name="q4" id="q4c"><label for="q4c">Select last column</label></li>
+              </ul>
+
+              <div class="quiz-question">5. Which clause is used to filter rows?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q5" id="q5a" data-correct="true"><label for="q5a">WHERE</label></li>
+                <li><input type="radio" name="q5" id="q5b"><label for="q5b">HAVING</label></li>
+                <li><input type="radio" name="q5" id="q5c"><label for="q5c">FILTER</label></li>
+              </ul>
+
+              <div class="quiz-question">6. Which operator checks for a range of values?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q6" id="q6a" data-correct="true"><label for="q6a">BETWEEN</label></li>
+                <li><input type="radio" name="q6" id="q6b"><label for="q6b">IN</label></li>
+                <li><input type="radio" name="q6" id="q6c"><label for="q6c">LIKE</label></li>
+              </ul>
+
+              <div class="quiz-question">7. Which keyword sorts query results?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q7" id="q7a"><label for="q7a">SORT</label></li>
+                <li><input type="radio" name="q7" id="q7b" data-correct="true"><label for="q7b">ORDER BY</label></li>
+                <li><input type="radio" name="q7" id="q7c"><label for="q7c">GROUP BY</label></li>
+              </ul>
+
+              <div class="quiz-question">8. What is the default sort order?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q8" id="q8a"><label for="q8a">DESC</label></li>
+                <li><input type="radio" name="q8" id="q8b" data-correct="true"><label for="q8b">ASC</label></li>
+                <li><input type="radio" name="q8" id="q8c"><label for="q8c">RANDOM</label></li>
+              </ul>
+
+              <div class="quiz-question">9. Which function returns the number of rows?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q9" id="q9a"><label for="q9a">SUM()</label></li>
+                <li><input type="radio" name="q9" id="q9b" data-correct="true"><label for="q9b">COUNT()</label></li>
+                <li><input type="radio" name="q9" id="q9c"><label for="q9c">TOTAL()</label></li>
+              </ul>
+
+              <div class="quiz-question">10. Which function finds the highest value?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q10" id="q10a" data-correct="true"><label for="q10a">MAX()</label></li>
+                <li><input type="radio" name="q10" id="q10b"><label for="q10b">HIGH()</label></li>
+                <li><input type="radio" name="q10" id="q10c"><label for="q10c">TOP()</label></li>
+              </ul>
+
+              <div class="quiz-question">11. Which clause groups rows?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q11" id="q11a"><label for="q11a">ORDER BY</label></li>
+                <li><input type="radio" name="q11" id="q11b" data-correct="true"><label for="q11b">GROUP BY</label></li>
+                <li><input type="radio" name="q11" id="q11c"><label for="q11c">MERGE</label></li>
+              </ul>
+
+              <div class="quiz-question">12. Which clause filters groups (after aggregation)?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q12" id="q12a"><label for="q12a">WHERE</label></li>
+                <li><input type="radio" name="q12" id="q12b" data-correct="true"><label for="q12b">HAVING</label></li>
+                <li><input type="radio" name="q12" id="q12c"><label for="q12c">FILTER</label></li>
+              </ul>
+
+              <div class="quiz-question">13. Which join returns only matching rows in both tables?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q13" id="q13a" data-correct="true"><label for="q13a">INNER JOIN</label></li>
+                <li><input type="radio" name="q13" id="q13b"><label for="q13b">LEFT JOIN</label></li>
+                <li><input type="radio" name="q13" id="q13c"><label for="q13c">FULL OUTER JOIN</label></li>
+              </ul>
+
+              <div class="quiz-question">14. Which join keeps all rows from the left table?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q14" id="q14a" data-correct="true"><label for="q14a">LEFT JOIN</label></li>
+                <li><input type="radio" name="q14" id="q14b"><label for="q14b">RIGHT JOIN</label></li>
+                <li><input type="radio" name="q14" id="q14c"><label for="q14c">CROSS JOIN</label></li>
+              </ul>
+
+              <div class="quiz-question">15. What is a subquery?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q15" id="q15a"><label for="q15a">A temporary view</label></li>
+                <li><input type="radio" name="q15" id="q15b" data-correct="true"><label for="q15b">A query inside another query</label></li>
+                <li><input type="radio" name="q15" id="q15c"><label for="q15c">A stored procedure</label></li>
+              </ul>
+
+              <div class="quiz-question">16. Which keyword is often used with subqueries?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q16" id="q16a" data-correct="true"><label for="q16a">EXISTS</label></li>
+                <li><input type="radio" name="q16" id="q16b"><label for="q16b">UNIQUE</label></li>
+                <li><input type="radio" name="q16" id="q16c"><label for="q16c">HAVING</label></li>
+              </ul>
+
+              <div class="quiz-question">17. Which statement adds new rows?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q17" id="q17a"><label for="q17a">ADD</label></li>
+                <li><input type="radio" name="q17" id="q17b" data-correct="true"><label for="q17b">INSERT INTO</label></li>
+                <li><input type="radio" name="q17" id="q17c"><label for="q17c">APPEND</label></li>
+              </ul>
+
+              <div class="quiz-question">18. Which is valid syntax?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q18" id="q18a"><label for="q18a">INSERT customers VALUES ('John','Doe');</label></li>
+                <li><input type="radio" name="q18" id="q18b" data-correct="true"><label for="q18b">INSERT INTO customers (first_name, last_name) VALUES ('John','Doe');</label></li>
+                <li><input type="radio" name="q18" id="q18c"><label for="q18c">ADD TO customers ('John','Doe');</label></li>
+              </ul>
+
+              <div class="quiz-question">19. Which statement modifies existing data?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q19" id="q19a"><label for="q19a">ALTER</label></li>
+                <li><input type="radio" name="q19" id="q19b" data-correct="true"><label for="q19b">UPDATE</label></li>
+                <li><input type="radio" name="q19" id="q19c"><label for="q19c">MODIFY</label></li>
+              </ul>
+
+              <div class="quiz-question">20. Which statement removes rows from a table?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q20" id="q20a"><label for="q20a">DROP</label></li>
+                <li><input type="radio" name="q20" id="q20b"><label for="q20b">REMOVE</label></li>
+                <li><input type="radio" name="q20" id="q20c" data-correct="true"><label for="q20c">DELETE</label></li>
+              </ul>
+
+              <button type="button" class="quiz-submit">Check Answers</button>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </form>
+          </div>
+        </section>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="tutorial-nav">
+        <a href="../delete-data/index.html" class="nav-btn">
+          <i class="fas fa-chevron-left"></i>
+          Previous: Deleting Data
+        </a>
+        <a href="../../../index.html" class="nav-btn">
+          Back to Home
+          <i class="fas fa-home"></i>
+        </a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>ilovedatabase</h3>
+          <p>Your comprehensive resource for mastering database concepts and technologies.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Continue Learning</h4>
+          <ul>
+            <li><a href="../../../tutorials/index.html">All Tutorials</a></li>
+            <li><a href="../../../blog/index.html">Blog</a></li>
+            <li><a href="../../../contact/contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+<script src="../../../js/tutorial-quiz.js"></script>
+<script src="../../../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4WJPXKKQT0');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to sort query results in SQL using ORDER BY. Understand ascending and descending order, multiple columns, and practical examples.">
+    <meta name="keywords" content="SQL ORDER BY, sorting data, SQL tutorial, ascending, descending, multiple columns">
+    <title>SQL Basics - Lesson 4: Sorting Data with ORDER BY | ilovedatabase</title>
+
+    <!-- External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/responsive.css">
+    <link rel="stylesheet" href="../../../css/tutorial.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+           <div class="logo">
+    <a href="../../../index.html" class="logo-link">
+        <i class="fas fa-database"></i>
+        <span>ilovedatabase</span>
+    </a>
+</div>
+
+           <nav class="top-nav">
+    <ul class="nav-menu">
+        <li><a href="../../../index.html" class="nav-link">Home</a></li>
+        <li><a href="../../index.html" class="nav-link">Tutorials</a></li>
+        <li><a href="../../../blog/index.html" class="nav-link">Blog</a></li>
+        <li><a href="../../../ebook/index.html" class="nav-link">EBooks</a></li>
+        <li><a href="../../../about/about.html" class="nav-link">About</a></li>
+    </ul>
+</nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../../../tutorials/index.html">Tutorials</a></li>
+                <li><a href="../../../tutorials/sql-basics/introduction/index.html">SQL Basics</a></li>
+                <li><span>Sorting Data with ORDER BY</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="tutorial-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="tutorial-sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 33%"></div>
+                </div>
+                <span class="progress-text">Lesson 4 of 12</span>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Outline</h3>
+                <ul class="sidebar-nav">
+                    <li><a href="../introduction/index.html">1. Introduction to SQL</a></li>
+                    <li><a href="../basic-select/index.html">2. Basic SELECT Statements</a></li>
+                    <li><a href="../filtering-data/index.html">3. Filtering Data with WHERE</a></li>
+                    <li><a href="index.html" class="active">4. Sorting Data with ORDER BY</a></li>
+                    <li><a href="../aggregate-functions/index.html">5. Aggregate Functions</a></li>
+                    <li><a href="../grouping-data/index.html">6. Grouping Data</a></li>
+                    <li><a href="../joins/index.html">7. Table Joins</a></li>
+                    <li><a href="../subqueries/index.html">8. Subqueries</a></li>
+                    <li><a href="../insert-data/index.html">9. Inserting Data</a></li>
+                    <li><a href="../update-data/index.html">10. Updating Data</a></li>
+                    <li><a href="../delete-data/index.html">11. Deleting Data</a></li>
+                    <li><a href="../practice-exercises/index.html">12. Practice Exercises</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Tutorial Content -->
+        <article class="tutorial-content">
+            <div class="tutorial-header">
+                <h1>Lesson 4: Sorting Data with ORDER BY</h1>
+                <div class="tutorial-meta-info">
+                    <span><i class="fas fa-clock"></i> 20 min read</span>
+                    <span><i class="fas fa-signal"></i> Beginner</span>
+                    <span><i class="fas fa-bookmark"></i> Lesson 4 of 12</span>
+                    <span><i class="fas fa-users"></i> 12.8k learners</span>
+                </div>
+            </div>
+
+            <div class="tutorial-body">
+                <!-- Section: ORDER BY Basics -->
+                <section>
+                    <h2>What is ORDER BY?</h2>
+                    <p>The <code>ORDER BY</code> clause sorts query results based on one or more columns. By default, it sorts in ascending order.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name, last_name, city
+FROM customers
+ORDER BY last_name;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: ASC and DESC -->
+                <section>
+                    <h2>ASC vs DESC</h2>
+                    <p>You can specify the sort order using <code>ASC</code> (ascending, default) or <code>DESC</code> (descending).</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name, age
+FROM customers
+ORDER BY age DESC;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: Sorting by Multiple Columns -->
+                <section>
+                    <h2>Sorting by Multiple Columns</h2>
+                    <p>You can sort by more than one column by listing them, separated by commas. SQL applies sorting in the order listed.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name, last_name, city
+FROM customers
+ORDER BY city ASC, last_name ASC;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: ORDER BY with Aliases -->
+                <section>
+                    <h2>ORDER BY with Aliases</h2>
+                    <p>You can also use column aliases defined in the <code>SELECT</code> clause inside <code>ORDER BY</code>.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name AS fname, last_name AS lname
+FROM customers
+ORDER BY lname;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Practice Quiz -->
+                <section id="practice-exercise">
+                    <h2>Practice Quiz</h2>
+                    <p>Test your understanding of ORDER BY:</p>
+
+                    <div class="quiz-container">
+                        <form class="quiz-form">
+
+                            <div class="quiz-question">1. Which clause is used to sort query results?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q1" id="q1a"><label for="q1a">GROUP BY</label></li>
+                                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">ORDER BY</label></li>
+                                <li><input type="radio" name="q1" id="q1c"><label for="q1c">SORT</label></li>
+                            </ul>
+
+                            <div class="quiz-question">2. What is the default sort order in SQL?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q2" id="q2a" data-correct="true"><label for="q2a">Ascending</label></li>
+                                <li><input type="radio" name="q2" id="q2b"><label for="q2b">Descending</label></li>
+                                <li><input type="radio" name="q2" id="q2c"><label for="q2c">Random</label></li>
+                            </ul>
+
+                            <div class="quiz-question">3. How do you sort results in descending order?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q3" id="q3a"><label for="q3a">SORT DESC</label></li>
+                                <li><input type="radio" name="q3" id="q3b"><label for="q3b">ORDER DESC</label></li>
+                                <li><input type="radio" name="q3" id="q3c" data-correct="true"><label for="q3c">ORDER BY ... DESC</label></li>
+                            </ul>
+
+                            <div class="quiz-question">4. Can you sort by multiple columns?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q4" id="q4a" data-correct="true"><label for="q4a">Yes, by listing columns separated with commas</label></li>
+                                <li><input type="radio" name="q4" id="q4b"><label for="q4b">No, only one column at a time</label></li>
+                                <li><input type="radio" name="q4" id="q4c"><label for="q4c">Yes, but only numeric columns</label></li>
+                            </ul>
+
+                            <div class="quiz-question">5. Which keyword sorts results from highest to lowest?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q5" id="q5a"><label for="q5a">ASC</label></li>
+                                <li><input type="radio" name="q5" id="q5b" data-correct="true"><label for="q5b">DESC</label></li>
+                                <li><input type="radio" name="q5" id="q5c"><label for="q5c">MAX</label></li>
+                            </ul>
+
+                            <button type="button" class="quiz-submit">Check Answers</button>
+                            <div class="quiz-feedback" style="display: none;"></div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="tutorial-nav">
+                <a href="../filtering-data/index.html" class="nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    Previous: Filtering Data with WHERE
+                </a>
+                <a href="../aggregate-functions/index.html" class="nav-btn">
+                    Next: Aggregate Functions
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ilovedatabase</h3>
+                    <p>Your comprehensive resource for mastering database concepts and technologies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>SQL Basics Course</h4>
+                    <ul>
+                        <li><a href="../introduction/index.html">Introduction to SQL</a></li>
+                        <li><a href="../basic-select/index.html">Basic SELECT Statements</a></li>
+                        <li><a href="../filtering-data/index.html">Filtering Data</a></li>
+                        <li><a href="../joins/index.html">Table Joins</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+   <script src="../../../js/tutorial-quiz.js"></script>
+    <script src="../../../js/main.js"></script>
+</body>
+</html>

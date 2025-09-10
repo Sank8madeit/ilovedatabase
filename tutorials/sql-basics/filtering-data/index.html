@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-4WJPXKKQT0');
+	</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn how to filter data in SQL using the WHERE clause. Understand comparison operators, logical operators, and practice with examples.">
+    <meta name="keywords" content="SQL WHERE, filtering data, SQL tutorial, comparison operators, logical operators, learn SQL">
+    <title>SQL Basics - Lesson 3: Filtering Data with WHERE | ilovedatabase</title>
+
+    <!-- External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/responsive.css">
+    <link rel="stylesheet" href="../../../css/tutorial.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="../../index.html" class="logo-link">
+                    <i class="fas fa-database"></i>
+                    <span>ilovedatabase</span>
+                </a>
+            </div>
+
+
+             <nav class="top-nav">
+                <ul class="nav-menu">
+                     <li><a href="../../../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../../../tutorials/index.html" class="nav-link active">Tutorials</a></li>
+                    <li><a href="../../../blog/index.html" class="nav-link">Blog</a></li>
+					<li><a href="../../../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    <li><a href="../../../about/about.html" class="nav-link">About</a></li>
+                </ul>
+            </nav>	
+
+            <div class="header-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb-list">
+                <li><a href="../../../index.html">Home</a></li>
+                <li><a href="../../../tutorials/index.html">Tutorials</a></li>
+                <li><a href="../../../tutorials/sql-basics/introduction/index.html">SQL Basics</a></li>
+                <li><span>Filtering Data with WHERE</span></li>
+            </ol>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="tutorial-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="tutorial-sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <span class="progress-text">Lesson 3 of 12</span>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Course Outline</h3>
+                <ul class="sidebar-nav">
+                    <li><a href="../introduction/index.html">1. Introduction to SQL</a></li>
+                    <li><a href="../basic-select/index.html">2. Basic SELECT Statements</a></li>
+                    <li><a href="index.html" class="active">3. Filtering Data with WHERE</a></li>
+                   <li><a href="../sorting-data/index.html">4. Sorting Data with ORDER BY</a></li>
+                    <li><a href="../aggregate-functions/index.html">5. Aggregate Functions</a></li>
+                    <li><a href="../grouping-data/index.html">6. Grouping Data</a></li>
+                    <li><a href="../joins/index.html">7. Table Joins</a></li>
+                    <li><a href="../subqueries/index.html">8. Subqueries</a></li>
+                    <li><a href="../insert-data/index.html">9. Inserting Data</a></li>
+                    <li><a href="../update-data/index.html">10. Updating Data</a></li>
+                    <li><a href="../delete-data/index.html">11. Deleting Data</a></li>
+                    <li><a href="../practice-exercises/index.html">12. Practice Exercises</a></li>
+
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Tutorial Content -->
+        <article class="tutorial-content">
+            <div class="tutorial-header">
+                <h1>Lesson 3: Filtering Data with WHERE</h1>
+                <div class="tutorial-meta-info">
+                    <span><i class="fas fa-clock"></i> 25 min read</span>
+                    <span><i class="fas fa-signal"></i> Beginner</span>
+                    <span><i class="fas fa-bookmark"></i> Lesson 3 of 12</span>
+                    <span><i class="fas fa-users"></i> 13.5k learners</span>
+                </div>
+            </div>
+
+            <div class="tutorial-body">
+                <!-- Section: WHERE Basics -->
+                <section>
+                    <h2>What is the WHERE Clause?</h2>
+                    <p>The <code>WHERE</code> clause filters records based on specific conditions. Without it, SQL queries return all rows in a table.</p>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT * FROM customers
+WHERE city = 'New York';</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: Comparison Operators -->
+                <section>
+                    <h2>Comparison Operators</h2>
+                    <ul>
+                        <li><code>=</code> → Equal</li>
+                        <li><code>&lt;&gt;</code> or <code>!=</code> → Not equal</li>
+                        <li><code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code> → Greater/less than</li>
+                    </ul>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name, age FROM customers
+WHERE age &gt;= 30;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: Logical Operators -->
+                <section>
+                    <h2>Logical Operators</h2>
+                    <ul>
+                        <li><code>AND</code> → Combines multiple conditions (both must be true)</li>
+                        <li><code>OR</code> → At least one condition must be true</li>
+                        <li><code>NOT</code> → Negates a condition</li>
+                    </ul>
+                    <div class="code-example">
+                        <div class="code-header">
+                            <span class="code-lang">SQL</span>
+                            <button class="try-it-btn">Try It</button>
+                        </div>
+                        <pre><code class="language-sql">SELECT first_name, city FROM customers
+WHERE city = 'New York' OR city = 'Los Angeles';</code></pre>
+                    </div>
+                </section>
+
+                <!-- Section: Special Operators -->
+                <section>
+                    <h2>Special Operators</h2>
+                    <ul>
+                        <li><code>IN</code> → Match against a list of values</li>
+                        <li><code>BETWEEN</code> → Match within a range</li>
+                        <li><code>LIKE</code> → Match using patterns</li>
+                        <li><code>IS NULL</code> → Find null values</li>
+                    </ul>
+                </section>
+
+                <!-- Practice Quiz -->
+                <section id="practice-exercise">
+                    <h2>Practice Quiz</h2>
+                    <p>Test your understanding of the WHERE clause:</p>
+
+                    <div class="quiz-container">
+                        <form class="quiz-form">
+
+                            <div class="quiz-question">1. Which clause filters rows based on a condition?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q1" id="q1a"><label for="q1a">SELECT</label></li>
+                                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">WHERE</label></li>
+                                <li><input type="radio" name="q1" id="q1c"><label for="q1c">FROM</label></li>
+                            </ul>
+
+                            <div class="quiz-question">2. Which operator checks if a value is within a range?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q2" id="q2a"><label for="q2a">IN</label></li>
+                                <li><input type="radio" name="q2" id="q2b" data-correct="true"><label for="q2b">BETWEEN</label></li>
+                                <li><input type="radio" name="q2" id="q2c"><label for="q2c">LIKE</label></li>
+                            </ul>
+
+                            <div class="quiz-question">3. Which operator is used for pattern matching?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q3" id="q3a"><label for="q3a">IN</label></li>
+                                <li><input type="radio" name="q3" id="q3b"><label for="q3b">BETWEEN</label></li>
+                                <li><input type="radio" name="q3" id="q3c" data-correct="true"><label for="q3c">LIKE</label></li>
+                            </ul>
+
+                            <div class="quiz-question">4. Which operator checks if a value is missing?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q4" id="q4a" data-correct="true"><label for="q4a">IS NULL</label></li>
+                                <li><input type="radio" name="q4" id="q4b"><label for="q4b">= NULL</label></li>
+                                <li><input type="radio" name="q4" id="q4c"><label for="q4c">NULL()</label></li>
+                            </ul>
+
+                            <div class="quiz-question">5. What does AND do in a WHERE clause?</div>
+                            <ul class="quiz-options">
+                                <li><input type="radio" name="q5" id="q5a"><label for="q5a">At least one condition must be true</label></li>
+                                <li><input type="radio" name="q5" id="q5b" data-correct="true"><label for="q5b">Both conditions must be true</label></li>
+                                <li><input type="radio" name="q5" id="q5c"><label for="q5c">Negates a condition</label></li>
+                            </ul>
+
+                            <button type="button" class="quiz-submit">Check Answers</button>
+                            <div class="quiz-feedback" style="display: none;"></div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="tutorial-nav">
+                <a href="../basic-select/index.html" class="nav-btn">
+                    <i class="fas fa-chevron-left"></i>
+                    Previous: Basic SELECT Statements
+                </a>
+                <a href="../sorting-data/index.html" class="nav-btn">
+                    Next: Sorting Data with ORDER BY
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </nav>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ilovedatabase</h3>
+                    <p>Your comprehensive resource for mastering database concepts and technologies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>SQL Basics Course</h4>
+                    <ul>
+                        <li><a href="../introduction/index.html">Introduction to SQL</a></li>
+                        <li><a href="../basic-select/index.html">Basic SELECT Statements</a></li>
+                        <li><a href="../filtering-data/index.html">Filtering Data</a></li>
+                        <li><a href="../joins/index.html">Table Joins</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ilovedatabase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="../../../js/tutorial-quiz.js"></script>
+    <script src="../../../js/main.js"></script>
+</body>
+</html>
