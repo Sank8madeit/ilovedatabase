@@ -1,162 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4WJPXKKQT0');
-</script>
-
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NoSQL Databases | ilovedatabase </title>
-  <meta name="description" content="Learn NoSQL databases from basics to advanced with examples, types, and quizzes. Covers MongoDB, Redis, Cassandra, and Neo4j.">
-  <meta name="keywords" content="nosql tutorial, mongodb, redis, cassandra, neo4j, document db, key value store, column db, graph db">
-  <meta name="author" content="I Love Database">
+  <meta name="description" content="Learn NoSQL databases with simple explanations, examples, and quizzes. Covers MongoDB, Redis, Cassandra, and Neo4j.">
+  <meta name="keywords" content="NoSQL tutorial, MongoDB, Redis, Cassandra, Neo4j, document db, key-value store, column db, graph db">
+  <title>NoSQL Databases | ilovedatabase</title>
 
-  <!-- External -->
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4WJPXKKQT0');
+  </script>
+
+  <!-- External Libraries -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 
-  <style>
-    /* === Theme Variables === */
-    :root {
-      --primary-color: #2563eb;
-      --primary-hover: #1d4ed8;
-      --accent-color: #8b5cf6;
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8fafc;
-      --bg-tertiary: #f1f5f9;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --radius-md: 0.5rem;
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-      --transition: all 0.2s ease-in-out;
-    }
-    [data-theme="dark"] {
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); transition: var(--transition); }
-    .container { max-width: 1000px; margin: auto; padding: 0 1rem; }
-
-    /* Header */
-    .header { position: sticky; top: 0; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); z-index: 100; }
-    .header-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-    .logo-link { display: flex; gap: 0.5rem; text-decoration: none; font-weight: 700; font-size: 1.25rem; color: var(--text-primary); }
-    .nav-menu { display: flex; gap: 2rem; list-style: none; }
-    .nav-link { text-decoration: none; color: var(--text-secondary); transition: var(--transition); }
-    .nav-link:hover, .nav-link.active { color: var(--primary-color); }
-    .theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--text-secondary); }
-
-    /* Page */
-    .main-content { padding: 2rem 0; }
-    .page-header { text-align: center; margin-bottom: 2.5rem; }
-    .page-title { font-size: 2.5rem; margin-bottom: 1rem; }
-    .page-subtitle { max-width: 700px; margin: auto; color: var(--text-secondary); }
-
-    /* Sections */
-    .tutorial-section { margin: 3rem 0; }
-    .section-title { font-size: 1.75rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
-    .card { background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
-    pre { background: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md); overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
-
-    /* Table */
-    .table-container { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-    th, td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
-    th { background: var(--bg-tertiary); }
-
-    /* Quiz */
-    .quiz-question { margin-bottom: 1.5rem; }
-    .quiz-options label { display: block; margin: 0.5rem 0; cursor: pointer; }
-    .quiz-result { margin-top: 1rem; font-weight: 600; }
-
-    /* CTA */
-    .cta { text-align: center; margin-top: 3rem; padding: 2rem; background: var(--accent-color); color: #fff; border-radius: var(--radius-md); }
-    .cta a { background: #fff; color: var(--accent-color); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); }
-    .cta a:hover { background: #f3f3f3; }
-
-    /* Footer */
-    .footer { background: var(--bg-secondary); padding: 3rem 0 1.5rem; margin-top: 4rem; border-top: 1px solid var(--border-color); }
-    .footer-content { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; margin-bottom: 2rem; }
-    .footer-bottom { text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 2rem; font-size: 0.875rem; }
-
-    @media (max-width: 768px) { .nav-menu { display: none; } .footer-content { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 480px) { .footer-content { grid-template-columns: 1fr; } }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/tutorial.css">
 </head>
 <body>
   <!-- Header -->
   <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo-link"><i class="fas fa-database"></i>I Love Database</a>
-      <nav>
+      <div class="logo">
+        <a href="/" class="logo-link">
+          <i class="fas fa-database"></i>
+          <span>ilovedatabase</span>
+        </a>
+      </div>
+      <nav class="top-nav">
         <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="tutorials/index.html" class="nav-link">Tutorials</a></li>
-          <li><a href="blog/index.html" class="nav-link">Blog</a></li>
-          <li><a href="nosql.html" class="nav-link active">NoSQL</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/tutorials/" class="nav-link">Tutorials</a></li>
+          <li><a href="/blog/" class="nav-link">Blog</a></li>
+          <li><a href="/tutorials/nosql.html" class="nav-link active">NoSQL</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+          <li><a href="/contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
-      <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+      <div class="header-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Main -->
-  <main class="main-content">
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
     <div class="container">
-      <div class="page-header">
-        <h1 class="page-title">NoSQL Databases</h1>
-        <p class="page-subtitle">A complete beginner-to-advanced guide to NoSQL: learn what it is, why it’s used, different types, real-world examples, and a quiz to test your knowledge.</p>
+      <ol class="breadcrumb-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/">Tutorials</a></li>
+        <li><span>NoSQL Databases</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Layout -->
+  <main class="tutorial-layout">
+    <!-- Sidebar -->
+    <aside class="tutorial-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Course Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-text">0% completed</span>
+      </div>
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Other Tutorials</h3>
+        <ul class="sidebar-nav">
+          <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+          <li><a href="/tutorials/nosql.html" class="active">NoSQL</a></li>
+          <li><a href="/tutorials/cloud-databases.html">Cloud Databases</a></li>
+          <li><a href="/etl-data-warehousing.html">ETL & DW</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <article class="tutorial-content">
+      <div class="tutorial-header">
+        <h1>NoSQL Databases</h1>
+        <div class="tutorial-meta-info">
+          <span><i class="fas fa-clock"></i> 20 min</span>
+          <span><i class="fas fa-signal"></i> Beginner Friendly</span>
+          <span><i class="fas fa-users"></i> 6.1k learners</span>
+        </div>
       </div>
 
-      <!-- Intro -->
-      <section class="tutorial-section">
-        <h2 class="section-title">What is NoSQL?</h2>
-        <div class="card">
-          <p><strong>NoSQL</strong> stands for <em>“Not Only SQL”</em>. It is a type of database designed for modern applications that need to handle <strong>large volumes of data, high speed, and flexible data formats</strong>.</p>
-          <p><strong>Analogy:</strong> If SQL is like an Excel sheet with fixed rows & columns, NoSQL is like a flexible notebook where each page can have a different structure.</p>
-        </div>
-      </section>
+      <div class="tutorial-body">
+        <!-- What is NoSQL -->
+        <section>
+          <h2>What is NoSQL?</h2>
+          <p><strong>NoSQL</strong> stands for <em>“Not Only SQL”</em>. It is designed for modern applications that need to handle <strong>large volumes of data, high speed, and flexible formats</strong>.</p>
+          <p><strong>Analogy:</strong> If SQL is like an Excel sheet with fixed rows and columns, NoSQL is like a notebook 📒 where each page can have a different structure.</p>
+        </section>
 
-      <!-- Types -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Types of NoSQL Databases</h2>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr><th>Type</th><th>Description</th><th>Examples</th><th>Use Case</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Key-Value Store</td><td>Data stored as key-value pairs, like a dictionary</td><td>Redis, DynamoDB</td><td>Caching, session storage</td></tr>
-              <tr><td>Document Store</td><td>Data stored as JSON-like documents</td><td>MongoDB, CouchDB</td><td>Web apps, product catalogs</td></tr>
-              <tr><td>Column Store</td><td>Data stored in columns instead of rows</td><td>Cassandra, HBase</td><td>Analytics, big data</td></tr>
-              <tr><td>Graph DB</td><td>Data stored as nodes and relationships</td><td>Neo4j, JanusGraph</td><td>Social networks, fraud detection</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+        <!-- Types -->
+        <section>
+          <h2>Types of NoSQL Databases</h2>
+          <ul>
+            <li><strong>Key-Value Store</strong>: Data stored as key-value pairs. Example: Redis, DynamoDB.</li>
+            <li><strong>Document Store</strong>: Data stored as JSON-like documents. Example: MongoDB, CouchDB.</li>
+            <li><strong>Column Store</strong>: Data stored in columns instead of rows. Example: Cassandra, HBase.</li>
+            <li><strong>Graph DB</strong>: Data stored as nodes and relationships. Example: Neo4j, JanusGraph.</li>
+          </ul>
+        </section>
 
-      <!-- Examples -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Examples</h2>
-        <div class="card">
-          <p><strong>MongoDB (Document DB)</strong> – Flexible JSON-like storage</p>
+        <!-- Examples -->
+        <section>
+          <h2>Examples</h2>
+          <p><strong>MongoDB (Document Store)</strong></p>
           <pre><code>{
   "_id": 1,
   "name": "Alice",
@@ -167,11 +130,11 @@
   ]
 }</code></pre>
 
-          <p><strong>Redis (Key-Value)</strong> – Simple key-value store</p>
+          <p><strong>Redis (Key-Value Store)</strong></p>
           <pre><code>SET user:1000 "Alice"
 HSET user:1000 name "Alice" email "alice@example.com"</code></pre>
 
-          <p><strong>Cassandra (Column Store)</strong> – Optimized for big data</p>
+          <p><strong>Cassandra (Column Store)</strong></p>
           <pre><code>CREATE TABLE orders (
   order_id UUID PRIMARY KEY,
   customer_id UUID,
@@ -179,126 +142,115 @@ HSET user:1000 name "Alice" email "alice@example.com"</code></pre>
   price DECIMAL
 );</code></pre>
 
-          <p><strong>Neo4j (Graph DB)</strong> – Relationships first</p>
+          <p><strong>Neo4j (Graph DB)</strong></p>
           <pre><code>CREATE (a:Person {name:"Alice"})-[:FRIEND]->(b:Person {name:"Bob"});</code></pre>
-        </div>
-      </section>
+        </section>
 
-      <!-- Advanced -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Advanced NoSQL Concepts</h2>
-        <div class="card">
+        <!-- Advanced -->
+        <section>
+          <h2>Advanced NoSQL Concepts</h2>
           <ul>
             <li><strong>Sharding</strong>: Splitting data across multiple servers for scalability.</li>
-            <li><strong>Replication</strong>: Keeping copies of data on multiple servers for reliability.</li>
-            <li><strong>Eventual Consistency</strong>: Updates may take time to propagate, but all nodes will sync eventually.</li>
-            <li><strong>CAP Theorem</strong>: Trade-off between Consistency, Availability, and Partition Tolerance in distributed systems.</li>
+            <li><strong>Replication</strong>: Keeping copies of data across servers for reliability.</li>
+            <li><strong>Eventual Consistency</strong>: Updates propagate over time, but all nodes sync eventually.</li>
+            <li><strong>CAP Theorem</strong>: Trade-off between Consistency, Availability, and Partition Tolerance.</li>
           </ul>
-        </div>
-      </section>
+        </section>
 
-      <!-- Quiz -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Quick Quiz</h2>
-        <div class="card">
-          <form id="quiz-form">
-            <div class="quiz-question">
-              <p>1. Which NoSQL database type is best for social networks?</p>
-              <div class="quiz-options">
-                <label><input type="radio" name="q1" value="A"> Key-Value</label>
-                <label><input type="radio" name="q1" value="B"> Document</label>
-                <label><input type="radio" name="q1" value="C"> Graph</label>
-              </div>
-            </div>
-            <div class="quiz-question">
-              <p>2. MongoDB stores data in what format?</p>
-              <div class="quiz-options">
-                <label><input type="radio" name="q2" value="A"> XML</label>
-                <label><input type="radio" name="q2" value="B"> JSON-like documents</label>
-                <label><input type="radio" name="q2" value="C"> Tables</label>
-              </div>
-            </div>
-            <div class="quiz-question">
-              <p>3. Which feature ensures high availability by keeping copies of data?</p>
-              <div class="quiz-options">
-                <label><input type="radio" name="q3" value="A"> Sharding</label>
-                <label><input type="radio" name="q3" value="B"> Replication</label>
-                <label><input type="radio" name="q3" value="C"> Partitioning</label>
-              </div>
-            </div>
-            <div class="quiz-question">
-              <p>4. Which is an example of a Column Store DB?</p>
-              <div class="quiz-options">
-                <label><input type="radio" name="q4" value="A"> MongoDB</label>
-                <label><input type="radio" name="q4" value="B"> Cassandra</label>
-                <label><input type="radio" name="q4" value="C"> Neo4j</label>
-              </div>
-            </div>
-            <div class="quiz-question">
-              <p>5. In CAP theorem, which 3 properties are balanced?</p>
-              <div class="quiz-options">
-                <label><input type="radio" name="q5" value="A"> Consistency, Accuracy, Partitioning</label>
-                <label><input type="radio" name="q5" value="B"> Consistency, Availability, Partition Tolerance</label>
-                <label><input type="radio" name="q5" value="C"> Cache, Access, Performance</label>
-              </div>
-            </div>
-            <button type="button" onclick="checkQuiz()">Submit Answers</button>
-            <div id="quiz-result" class="quiz-result"></div>
-          </form>
-        </div>
-      </section>
+        <!-- Quiz -->
+        <section id="practice-exercise">
+          <h2>Practice Quiz</h2>
+          <p>Test your understanding of NoSQL:</p>
+          <div class="quiz-container">
+            <form class="quiz-form">
+              <div class="quiz-question">1. Which NoSQL type is best for social networks?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q1" id="q1a"><label for="q1a">Key-Value</label></li>
+                <li><input type="radio" name="q1" id="q1b"><label for="q1b">Document</label></li>
+                <li><input type="radio" name="q1" id="q1c" data-correct="true"><label for="q1c">Graph</label></li>
+              </ul>
 
-      <!-- CTA -->
-      <div class="cta">
-        <h2>Ready to go further?</h2>
-        <p>Check out our <a href="advanced-sql.html">Advanced SQL Guide</a> or explore <a href="tutorials/index.html">all tutorials</a>.</p>
+              <div class="quiz-question">2. MongoDB stores data in what format?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q2" id="q2a"><label for="q2a">XML</label></li>
+                <li><input type="radio" name="q2" id="q2b" data-correct="true"><label for="q2b">JSON-like documents</label></li>
+                <li><input type="radio" name="q2" id="q2c"><label for="q2c">Tables</label></li>
+              </ul>
+
+              <div class="quiz-question">3. Which feature ensures high availability?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q3" id="q3a"><label for="q3a">Sharding</label></li>
+                <li><input type="radio" name="q3" id="q3b" data-correct="true"><label for="q3b">Replication</label></li>
+                <li><input type="radio" name="q3" id="q3c"><label for="q3c">Partitioning</label></li>
+              </ul>
+
+              <div class="quiz-question">4. Which is a Column Store DB?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q4" id="q4a"><label for="q4a">MongoDB</label></li>
+                <li><input type="radio" name="q4" id="q4b" data-correct="true"><label for="q4b">Cassandra</label></li>
+                <li><input type="radio" name="q4" id="q4c"><label for="q4c">Neo4j</label></li>
+              </ul>
+
+              <div class="quiz-question">5. In CAP theorem, which properties are balanced?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q5" id="q5a"><label for="q5a">Consistency, Accuracy, Partitioning</label></li>
+                <li><input type="radio" name="q5" id="q5b" data-correct="true"><label for="q5b">Consistency, Availability, Partition Tolerance</label></li>
+                <li><input type="radio" name="q5" id="q5c"><label for="q5c">Cache, Access, Performance</label></li>
+              </ul>
+
+              <button type="button" class="quiz-submit">Check Answers</button>
+              <div class="quiz-feedback" style="display:none;"></div>
+            </form>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+          <h2>Great Job! 🎉</h2>
+          <p>Now that you understand NoSQL, explore <a href="/tutorials/cloud-databases.html">Cloud Databases</a> or continue with <a href="/tutorials/advanced-sql/">Advanced SQL</a>.</p>
+        </section>
       </div>
-    </div>
+    </article>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <div><h3>I Love Database</h3><p>Your go-to resource for learning database concepts.</p></div>
-        <div><h4>Learning Paths</h4><ul><li><a href="tutorials/sql-basics.html">SQL Basics</a></li><li><a href="advanced-sql.html">Advanced SQL</a></li><li><a href="nosql/nosql.html">NoSQL</a></li></ul></div>
-        <div><h4>Resources</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div><h4>Policies</h4><ul><li><a href="about.html#privacy">Privacy Policy</a></li><li><a href="about.html#terms">Terms of Service</a></li></ul></div>
+        <div>
+          <h3>ilovedatabase</h3>
+          <p>Your go-to resource for learning database concepts.</p>
+        </div>
+        <div>
+          <h4>Learning Paths</h4>
+          <ul>
+            <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+            <li><a href="/tutorials/nosql.html">NoSQL</a></li>
+            <li><a href="/tutorials/cloud-databases.html">Cloud Databases</a></li>
+            <li><a href="/etl-data-warehousing.html">ETL & DW</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Policies</h4>
+          <ul>
+            <li><a href="/about.html#privacy">Privacy Policy</a></li>
+            <li><a href="/about.html#terms">Terms of Service</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-bottom">&copy; 2025 I Love Database. All rights reserved.</div>
+      <div class="footer-bottom">&copy; 2025 ilovedatabase. All rights reserved.</div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Theme Toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const savedTheme = localStorage.getItem('theme') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    if (savedTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      themeIcon.className = 'fas fa-sun';
-    }
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-
-    // Quiz
-    function checkQuiz() {
-      let score = 0;
-      const answers = {q1: "C", q2: "B", q3: "B", q4: "B", q5: "B"};
-      for (let q in answers) {
-        const chosen = document.querySelector(`input[name="${q}"]:checked`);
-        if (chosen && chosen.value === answers[q]) score++;
-      }
-      const result = document.getElementById("quiz-result");
-      result.textContent = `You scored ${score}/5 correct!`;
-    }
-  </script>
+  <script src="../js/tutorial-quiz.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
