@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced SQL Tutorial | ilovedatabase</title>
+  <meta name="description" content="Master advanced SQL queries: window functions, CTEs, recursive queries, and optimization techniques with examples and quizzes.">
+  <meta name="keywords" content="advanced sql, window functions, cte, recursive queries, sql optimization, ilovedatabase">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4WJPXKKQT0');
+  </script>
+
+  <!-- External Libraries -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css" media="(prefers-color-scheme: dark)">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/tutorial.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="logo">
+        <a href="/" class="logo-link">
+          <i class="fas fa-database"></i>
+          <span>ilovedatabase</span>
+        </a>
+      </div>
+      <nav class="top-nav">
+        <ul class="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/tutorials/" class="nav-link">Tutorials</a></li>
+          <li><a href="/blog/" class="nav-link">Blog</a></li>
+          <li><a href="/tutorials/advanced-sql.html" class="nav-link active">Advanced SQL</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+          <li><a href="/contact.html" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <div class="container">
+      <ol class="breadcrumb-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/">Tutorials</a></li>
+        <li><span>Advanced SQL</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Layout -->
+  <main class="tutorial-layout">
+    <!-- Sidebar -->
+    <aside class="tutorial-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Course Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-text">0% completed</span>
+      </div>
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Other Tutorials</h3>
+        <ul class="sidebar-nav">
+          <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+          <li><a href="/tutorials/nosql.html">NoSQL</a></li>
+          <li><a href="/tutorials/cloud-databases.html">Cloud Databases</a></li>
+          <li><a href="/etl-data-warehousing.html">ETL & DW</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <article class="tutorial-content">
+      <div class="tutorial-header">
+        <h1>Advanced SQL</h1>
+        <div class="tutorial-meta-info">
+          <span><i class="fas fa-clock"></i> 30 min</span>
+          <span><i class="fas fa-signal"></i> Intermediate</span>
+          <span><i class="fas fa-users"></i> 4.2k learners</span>
+        </div>
+      </div>
+
+      <div class="tutorial-body">
+        <!-- Window Functions -->
+        <section>
+          <h2>Window Functions</h2>
+          <p>Window functions let you perform calculations across sets of rows while keeping individual rows visible. They are used for ranking, moving averages, and running totals.</p>
+          <pre><code class="language-sql">-- Rank customers by total spent
+SELECT 
+    customer_id,
+    SUM(total_amount) AS total_spent,
+    RANK() OVER (ORDER BY SUM(total_amount) DESC) AS rank
+FROM orders
+GROUP BY customer_id;</code></pre>
+        </section>
+
+        <!-- CTEs -->
+        <section>
+          <h2>Common Table Expressions (CTEs)</h2>
+          <p>CTEs simplify complex queries by breaking them into smaller, reusable parts.</p>
+          <pre><code class="language-sql">-- Top 5 products by sales
+WITH product_sales AS (
+    SELECT 
+        product_id,
+        SUM(quantity * price) AS total_sales
+    FROM order_items
+    GROUP BY product_id
+)
+SELECT * 
+FROM product_sales
+ORDER BY total_sales DESC
+LIMIT 5;</code></pre>
+        </section>
+
+        <!-- Recursive Queries -->
+        <section>
+          <h2>Recursive Queries</h2>
+          <p>Recursive queries are used for hierarchical data, like employee-manager relationships or category trees.</p>
+          <pre><code class="language-sql">-- Employee hierarchy
+WITH RECURSIVE employee_hierarchy AS (
+    SELECT employee_id, manager_id, name, 1 AS level
+    FROM employees
+    WHERE manager_id IS NULL
+    UNION ALL
+    SELECT e.employee_id, e.manager_id, e.name, eh.level + 1
+    FROM employees e
+    INNER JOIN employee_hierarchy eh 
+        ON e.manager_id = eh.employee_id
+)
+SELECT * FROM employee_hierarchy;</code></pre>
+        </section>
+
+        <!-- Quiz -->
+        <section id="practice-exercise">
+          <h2>Practice Quiz</h2>
+          <p>Test your understanding of Advanced SQL:</p>
+          <div class="quiz-container">
+            <form class="quiz-form">
+              <div class="quiz-question">1. Which SQL feature is best for ranking rows without grouping?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q1" id="q1a"><label for="q1a">GROUP BY</label></li>
+                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">Window Functions</label></li>
+                <li><input type="radio" name="q1" id="q1c"><label for="q1c">CTEs</label></li>
+                <li><input type="radio" name="q1" id="q1d"><label for="q1d">Recursive Queries</label></li>
+              </ul>
+
+              <div class="quiz-question">2. What keyword introduces a recursive query?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q2" id="q2a"><label for="q2a">JOIN</label></li>
+                <li><input type="radio" name="q2" id="q2b"><label for="q2b">RANK</label></li>
+                <li><input type="radio" name="q2" id="q2c" data-correct="true"><label for="q2c">WITH RECURSIVE</label></li>
+                <li><input type="radio" name="q2" id="q2d"><label for="q2d">OVER</label></li>
+              </ul>
+
+              <button type="button" class="quiz-submit">Check Answers</button>
+              <div class="quiz-feedback" style="display:none;"></div>
+            </form>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+          <h2>Great Work! 🚀</h2>
+          <p>Continue your journey with <a href="/etl-data-warehousing.html">ETL & Data Warehousing</a> or revisit <a href="/tutorials/sql-basics/">SQL Basics</a>.</p>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <h3>ilovedatabase</h3>
+          <p>Your go-to resource for learning database concepts.</p>
+        </div>
+        <div>
+          <h4>Learning Paths</h4>
+          <ul>
+            <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+            <li><a href="/tutorials/advanced-sql.html">Advanced SQL</a></li>
+            <li><a href="/tutorials/nosql.html">NoSQL</a></li>
+            <li><a href="/tutorials/cloud-databases.html">Cloud Databases</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Policies</h4>
+          <ul>
+            <li><a href="/about.html#privacy">Privacy Policy</a></li>
+            <li><a href="/about.html#terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 ilovedatabase. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="../js/tutorial-quiz.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
