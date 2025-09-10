@@ -2,165 +2,140 @@
 <html lang="en">
 <head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4WJPXKKQT0');
-</script>
-
+    <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4WJPXKKQT0');
+  </script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cloud Databases | I Love Database</title>
   <meta name="description" content="Learn Cloud Databases from basics to advanced concepts with examples, diagrams, and quizzes. Covers AWS RDS, Google Cloud SQL, Azure Cosmos DB, and more.">
   <meta name="keywords" content="cloud databases, aws rds, azure cosmos db, google cloud sql, beginner guide, cloud database tutorial">
-  <meta name="author" content="I Love Database">
+  <title>Cloud Databases | ilovedatabase</title>
 
-  <!-- External -->
+
+
+  <!-- External Libraries -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --primary-color: #2563eb;
-      --primary-hover: #1d4ed8;
-      --accent-color: #f97316;
-      --bg-primary: #ffffff;
-      --bg-secondary: #f8fafc;
-      --bg-tertiary: #f1f5f9;
-      --text-primary: #0f172a;
-      --text-secondary: #334155;
-      --text-muted: #64748b;
-      --border-color: #e2e8f0;
-      --radius-md: 0.5rem;
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-      --transition: all 0.2s ease-in-out;
-    }
-    [data-theme="dark"] {
-      --bg-primary: #0f172a;
-      --bg-secondary: #1e293b;
-      --bg-tertiary: #334155;
-      --text-primary: #f8fafc;
-      --text-secondary: #cbd5e1;
-      --text-muted: #94a3b8;
-      --border-color: #334155;
-    }
-    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); transition: var(--transition); }
-    .container { max-width: 1000px; margin: auto; padding: 0 1rem; }
-
-    /* Header */
-    .header { position: sticky; top: 0; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); z-index: 100; }
-    .header-container { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-    .logo-link { display: flex; gap: 0.5rem; text-decoration: none; font-weight: 700; font-size: 1.25rem; color: var(--text-primary); }
-    .nav-menu { display: flex; gap: 2rem; list-style: none; }
-    .nav-link { text-decoration: none; color: var(--text-secondary); transition: var(--transition); }
-    .nav-link:hover, .nav-link.active { color: var(--primary-color); }
-    .theme-toggle { background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--text-secondary); }
-
-    /* Page */
-    .main-content { padding: 2rem 0; }
-    .page-header { text-align: center; margin-bottom: 2.5rem; }
-    .page-title { font-size: 2.5rem; margin-bottom: 1rem; }
-    .page-subtitle { max-width: 700px; margin: auto; color: var(--text-secondary); }
-
-    /* Sections */
-    .tutorial-section { margin: 3rem 0; }
-    .section-title { font-size: 1.75rem; margin-bottom: 1rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem; }
-    .card { background: var(--bg-secondary); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); margin-bottom: 1.5rem; box-shadow: var(--shadow-md); }
-    pre { background: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md); overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
-
-    /* Figure */
-    .figure { display: flex; justify-content: center; margin: 2rem 0; }
-    .figure-box { background: var(--bg-tertiary); border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--radius-md); width: 200px; text-align: center; margin: 0 1rem; }
-
-    /* Table */
-    .table-container { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-    th, td { border: 1px solid var(--border-color); padding: 0.75rem; text-align: left; }
-    th { background: var(--bg-tertiary); }
-
-    /* Quiz */
-    .quiz-question { margin-bottom: 1.5rem; }
-    .quiz-options label { display: block; margin: 0.5rem 0; cursor: pointer; }
-    .quiz-result { margin-top: 1rem; font-weight: 600; }
-
-    /* CTA */
-    .cta { text-align: center; margin-top: 3rem; padding: 2rem; background: var(--accent-color); color: #fff; border-radius: var(--radius-md); }
-    .cta a { background: #fff; color: var(--accent-color); padding: 0.75rem 1.5rem; border-radius: var(--radius-md); font-weight: 600; text-decoration: none; transition: var(--transition); }
-    .cta a:hover { background: #f3f3f3; }
-
-    /* Footer */
-    .footer { background: var(--bg-secondary); padding: 3rem 0 1.5rem; margin-top: 4rem; border-top: 1px solid var(--border-color); }
-    .footer-content { display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem; margin-bottom: 2rem; }
-    .footer-bottom { text-align: center; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 2rem; font-size: 0.875rem; }
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="stylesheet" href="../css/tutorial.css">
 </head>
 <body>
   <!-- Header -->
   <header class="header">
     <div class="header-container">
-      <a href="index.html" class="logo-link"><i class="fas fa-database"></i>I Love Database</a>
-      <nav>
+      <div class="logo">
+        <a href="/" class="logo-link">
+          <i class="fas fa-database"></i>
+          <span>ilovedatabase</span>
+        </a>
+      </div>
+      <nav class="top-nav">
         <ul class="nav-menu">
-          <li><a href="index.html" class="nav-link">Home</a></li>
-          <li><a href="tutorials/index.html" class="nav-link">Tutorials</a></li>
-          <li><a href="blog/index.html" class="nav-link">Blog</a></li>
-          <li><a href="cloud-databases.html" class="nav-link active">Cloud DB</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/tutorials/" class="nav-link">Tutorials</a></li>
+          <li><a href="/blog/" class="nav-link">Blog</a></li>
+          <li><a href="/tutorials/cloud-databases.html" class="nav-link active">Cloud DB</a></li>
+          <li><a href="/about.html" class="nav-link">About</a></li>
+          <li><a href="/contact.html" class="nav-link">Contact</a></li>
         </ul>
       </nav>
-      <button class="theme-toggle"><i class="fas fa-moon"></i></button>
+      <div class="header-actions">
+        <button class="theme-toggle" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Main -->
-  <main class="main-content">
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
     <div class="container">
-      <div class="page-header">
-        <h1 class="page-title">Cloud Databases</h1>
-        <p class="page-subtitle">Learn Cloud Databases step by step: from basics to advanced concepts with fun examples, diagrams, and a quiz.</p>
+      <ol class="breadcrumb-list">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/">Tutorials</a></li>
+        <li><span>Cloud Databases</span></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Layout -->
+  <main class="tutorial-layout">
+    <!-- Sidebar -->
+    <aside class="tutorial-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Course Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-text">0% completed</span>
+      </div>
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Other Tutorials</h3>
+        <ul class="sidebar-nav">
+          <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+          <li><a href="/tutorials/nosql.html">NoSQL</a></li>
+          <li><a href="/tutorials/cloud-databases.html" class="active">Cloud Databases</a></li>
+          <li><a href="/etl-data-warehousing.html">ETL & DW</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Content -->
+    <article class="tutorial-content">
+      <div class="tutorial-header">
+        <h1>Cloud Databases</h1>
+        <div class="tutorial-meta-info">
+          <span><i class="fas fa-clock"></i> 20 min</span>
+          <span><i class="fas fa-signal"></i> Beginner Friendly</span>
+          <span><i class="fas fa-users"></i> 7.8k learners</span>
+        </div>
       </div>
 
-      <!-- Intro -->
-      <section class="tutorial-section">
-        <h2 class="section-title">What is a Cloud Database?</h2>
-        <div class="card">
-          <p>A <strong>cloud database</strong> is like storing your toys in a friend’s big safe house instead of your own small box. 🚀</p>
+      <div class="tutorial-body">
+        <!-- Intro -->
+        <section>
+          <h2>What is a Cloud Database?</h2>
+          <p>A <strong>cloud database</strong> is like storing your toys in a friend’s big safe house instead of your small box. 🚀</p>
           <p>It’s a database that runs on cloud platforms (AWS, Azure, Google Cloud), so you don’t need to worry about servers, storage, or backups.</p>
-        </div>
-        <div class="figure">
-          <div class="figure-box">Your App</div>
-          <div class="figure-box">🌐 Internet</div>
-          <div class="figure-box">☁️ Cloud Database</div>
-        </div>
-      </section>
+          <div class="figure">
+            <div class="figure-box">Your App</div>
+            <div class="arrow">➡️</div>
+            <div class="figure-box">🌐 Internet</div>
+            <div class="arrow">➡️</div>
+            <div class="figure-box">☁️ Cloud Database</div>
+          </div>
+        </section>
 
-      <!-- Types -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Types of Cloud Databases</h2>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr><th>Type</th><th>Description</th><th>Examples</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Relational (SQL)</td><td>Traditional SQL databases hosted in the cloud</td><td>AWS RDS, Google Cloud SQL</td></tr>
-              <tr><td>NoSQL</td><td>Flexible, schema-less cloud databases</td><td>Azure Cosmos DB, DynamoDB</td></tr>
-              <tr><td>Data Warehouses</td><td>Designed for analytics and big queries</td><td>Snowflake, BigQuery</td></tr>
-              <tr><td>Serverless DBs</td><td>Databases that scale automatically with zero management</td><td>AWS Aurora Serverless</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+        <!-- Types -->
+        <section>
+          <h2>Types of Cloud Databases</h2>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr><th>Type</th><th>Description</th><th>Examples</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Relational (SQL)</td><td>Traditional SQL databases hosted in the cloud</td><td>AWS RDS, Google Cloud SQL</td></tr>
+                <tr><td>NoSQL</td><td>Flexible, schema-less cloud databases</td><td>Azure Cosmos DB, DynamoDB</td></tr>
+                <tr><td>Data Warehouses</td><td>Designed for analytics and big queries</td><td>Snowflake, BigQuery</td></tr>
+                <tr><td>Serverless DBs</td><td>Databases that scale automatically with zero management</td><td>AWS Aurora Serverless</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <!-- Examples -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Examples</h2>
-        <div class="card">
+        <!-- Examples -->
+        <section>
+          <h2>Examples</h2>
           <p><strong>AWS RDS (Relational DB)</strong></p>
           <pre><code># Connect using Python (PostgreSQL)
 import psycopg2
@@ -178,113 +153,113 @@ conn = psycopg2.connect(
     { "product": "Laptop", "price": 1200 }
   ]
 }</code></pre>
-        </div>
-      </section>
+        </section>
 
-      <!-- Advanced -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Advanced Cloud DB Concepts</h2>
-        <div class="card">
+        <!-- Advanced -->
+        <section>
+          <h2>Advanced Cloud DB Concepts</h2>
           <ul>
             <li><strong>Scalability</strong>: Cloud DBs grow automatically with traffic.</li>
             <li><strong>High Availability</strong>: Data is replicated across regions.</li>
             <li><strong>Backup & Recovery</strong>: Automatic snapshots.</li>
             <li><strong>Security</strong>: Encryption + Identity Access Management.</li>
           </ul>
-        </div>
-      </section>
+        </section>
 
-      <!-- Quiz -->
-      <section class="tutorial-section">
-        <h2 class="section-title">Quick Quiz</h2>
-        <div class="card">
-          <form id="quiz-form">
-            <div class="quiz-question">
-              <p>1. What’s the biggest advantage of a cloud database?</p>
-              <label><input type="radio" name="q1" value="A"> Free forever</label>
-              <label><input type="radio" name="q1" value="B"> No need to manage servers</label>
-              <label><input type="radio" name="q1" value="C"> Works only offline</label>
-            </div>
-            <div class="quiz-question">
-              <p>2. Which is an example of a Cloud NoSQL DB?</p>
-              <label><input type="radio" name="q2" value="A"> AWS RDS</label>
-              <label><input type="radio" name="q2" value="B"> Azure Cosmos DB</label>
-              <label><input type="radio" name="q2" value="C"> PostgreSQL</label>
-            </div>
-            <div class="quiz-question">
-              <p>3. Snowflake is mainly used for?</p>
-              <label><input type="radio" name="q3" value="A"> Gaming</label>
-              <label><input type="radio" name="q3" value="B"> Analytics & Warehousing</label>
-              <label><input type="radio" name="q3" value="C"> Mobile Apps</label>
-            </div>
-            <div class="quiz-question">
-              <p>4. Which feature keeps your cloud database safe from failure?</p>
-              <label><input type="radio" name="q4" value="A"> Replication</label>
-              <label><input type="radio" name="q4" value="B"> Coloring</label>
-              <label><input type="radio" name="q4" value="C"> Randomness</label>
-            </div>
-            <div class="quiz-question">
-              <p>5. What does “serverless database” mean?</p>
-              <label><input type="radio" name="q5" value="A"> Database without tables</label>
-              <label><input type="radio" name="q5" value="B"> Scales automatically, no manual management</label>
-              <label><input type="radio" name="q5" value="C"> A game database</label>
-            </div>
-            <button type="button" onclick="checkQuiz()">Submit Answers</button>
-            <div id="quiz-result" class="quiz-result"></div>
-          </form>
-        </div>
-      </section>
+        <!-- Quiz -->
+        <section id="practice-exercise">
+          <h2>Practice Quiz</h2>
+          <p>Test your understanding of Cloud Databases:</p>
+          <div class="quiz-container">
+            <form class="quiz-form">
+              <div class="quiz-question">1. What’s the biggest advantage of a cloud database?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q1" id="q1a"><label for="q1a">Free forever</label></li>
+                <li><input type="radio" name="q1" id="q1b" data-correct="true"><label for="q1b">No need to manage servers</label></li>
+                <li><input type="radio" name="q1" id="q1c"><label for="q1c">Works only offline</label></li>
+              </ul>
 
-      <!-- CTA -->
-      <div class="cta">
-        <h2>Want to be a Cloud Database Pro?</h2>
-        <p>Explore our <a href="advanced-sql.html">Advanced SQL Guide</a> and <a href="nosql.html">NoSQL Tutorial</a> to go deeper.</p>
+              <div class="quiz-question">2. Which is an example of a Cloud NoSQL DB?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q2" id="q2a"><label for="q2a">AWS RDS</label></li>
+                <li><input type="radio" name="q2" id="q2b" data-correct="true"><label for="q2b">Azure Cosmos DB</label></li>
+                <li><input type="radio" name="q2" id="q2c"><label for="q2c">PostgreSQL</label></li>
+              </ul>
+
+              <div class="quiz-question">3. Snowflake is mainly used for?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q3" id="q3a"><label for="q3a">Gaming</label></li>
+                <li><input type="radio" name="q3" id="q3b" data-correct="true"><label for="q3b">Analytics & Warehousing</label></li>
+                <li><input type="radio" name="q3" id="q3c"><label for="q3c">Mobile Apps</label></li>
+              </ul>
+
+              <div class="quiz-question">4. Which feature keeps your cloud database safe from failure?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q4" id="q4a" data-correct="true"><label for="q4a">Replication</label></li>
+                <li><input type="radio" name="q4" id="q4b"><label for="q4b">Coloring</label></li>
+                <li><input type="radio" name="q4" id="q4c"><label for="q4c">Randomness</label></li>
+              </ul>
+
+              <div class="quiz-question">5. What does “serverless database” mean?</div>
+              <ul class="quiz-options">
+                <li><input type="radio" name="q5" id="q5a"><label for="q5a">Database without tables</label></li>
+                <li><input type="radio" name="q5" id="q5b" data-correct="true"><label for="q5b">Scales automatically, no manual management</label></li>
+                <li><input type="radio" name="q5" id="q5c"><label for="q5c">A game database</label></li>
+              </ul>
+
+              <button type="button" class="quiz-submit">Check Answers</button>
+              <div class="quiz-feedback" style="display:none;"></div>
+            </form>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta">
+          <h2>Great Job! 🎉</h2>
+          <p>Now that you understand Cloud Databases, explore <a href="/tutorials/nosql.html">NoSQL</a> or continue with <a href="/tutorials/etl-data-warehousing.html">ETL & Data Warehousing</a>.</p>
+        </section>
       </div>
-    </div>
+    </article>
   </main>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
       <div class="footer-content">
-        <div><h3>I Love Database</h3><p>Your go-to resource for learning database concepts.</p></div>
-        <div><h4>Learning Paths</h4><ul><li><a href="tutorials/sql-basics.html">SQL Basics</a></li><li><a href="advanced-sql.html">Advanced SQL</a></li><li><a href="nosql.html">NoSQL</a></li><li><a href="cloud-databases.html">Cloud DB</a></li></ul></div>
-        <div><h4>Resources</h4><ul><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div><h4>Policies</h4><ul><li><a href="about.html#privacy">Privacy Policy</a></li><li><a href="about.html#terms">Terms of Service</a></li></ul></div>
+        <div>
+          <h3>ilovedatabase</h3>
+          <p>Your go-to resource for learning database concepts.</p>
+        </div>
+        <div>
+          <h4>Learning Paths</h4>
+          <ul>
+            <li><a href="/tutorials/sql-basics/">SQL Basics</a></li>
+            <li><a href="/tutorials/nosql.html">NoSQL</a></li>
+            <li><a href="/tutorials/cloud-databases.html">Cloud Databases</a></li>
+            <li><a href="/etl-data-warehousing.html">ETL & DW</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Policies</h4>
+          <ul>
+            <li><a href="/about.html#privacy">Privacy Policy</a></li>
+            <li><a href="/about.html#terms">Terms of Service</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-bottom">&copy; 2025 I Love Database. All rights reserved.</div>
+      <div class="footer-bottom">&copy; 2025 ilovedatabase. All rights reserved.</div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script>
-    // Theme Toggle
-    const themeToggle = document.querySelector('.theme-toggle');
-    const themeIcon = themeToggle.querySelector('i');
-    const savedTheme = localStorage.getItem('theme') || 
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    if (savedTheme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      themeIcon.className = 'fas fa-sun';
-    }
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      const newTheme = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      themeIcon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-    });
-
-    // Quiz
-    function checkQuiz() {
-      let score = 0;
-      const answers = {q1:"B", q2:"B", q3:"B", q4:"A", q5:"B"};
-      for (let q in answers) {
-        const chosen = document.querySelector(`input[name="${q}"]:checked`);
-        if (chosen && chosen.value === answers[q]) score++;
-      }
-      document.getElementById("quiz-result").textContent = `You scored ${score}/5 correct!`;
-    }
-  </script>
+  <script src="../js/tutorial-quiz.js"></script>
+  <script src="../js/main.js"></script>
 </body>
 </html>
