@@ -88,7 +88,7 @@ class ILoveDatabase {
                 <div class="logo">
                     <a href="./index.html" class="logo-link">
                         <i class="fas fa-database"></i>
-                        <span>I Love Database</span>
+                        <span>ilovedatabase</span>
                     </a>
                 </div>
                 <button class="mobile-menu-close" aria-label="Close menu">
@@ -98,15 +98,13 @@ class ILoveDatabase {
             <ul class="mobile-nav-menu">
                 <li><a href="./index.html" class="mobile-nav-link">Home</a></li>
                 <li><a href="tutorials/index.html" class="mobile-nav-link">Tutorials</a></li>
-                <li><a href="tutorials/sql-basics/index.html" class="mobile-nav-link">SQL Basics</a></li>
-                <li><a href="ebook/index.html" class="mobile-nav-link">Ebooks</a></li>
-                <li><a href="/tutorials/advanced-sql/" class="mobile-nav-link">Advanced SQL</a></li>
-                <li><a href="/tutorials/nosql/" class="mobile-nav-link">NoSQL</a></li>
-                <li><a href="/tutorials/cloud-databases/" class="mobile-nav-link">Cloud Databases</a></li>
-                <li><a href="/tutorials/database-design/" class="mobile-nav-link">Database Design</a></li>
-                <li><a href="/tutorials/etl-data-warehousing/" class="mobile-nav-link">ETL & Data Warehousing</a></li>
-                <li><a href="blog/index.html" class="mobile-nav-link">Blog</a></li>
-                <li><a href="/about/" class="mobile-nav-link">About</a></li>
+				<li><a href="blog/index.html" class="mobile-nav-link">Blog</a></li>
+                <li><a href="tutorials/sql-basics/introduction/index.html" class="mobile-nav-link">SQL Basics</a></li>
+				<li><a href="ebook/index.html" class="mobile-nav-link">Ebooks</a></li>
+				<li><a href="/about/about.html" class="mobile-nav-link">About</a></li>
+
+               
+                
             </ul>
             <div class="mobile-search">
                 <div class="search-container">
