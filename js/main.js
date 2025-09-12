@@ -96,13 +96,12 @@ class ILoveDatabase {
                 </button>
             </div>
             <ul class="mobile-nav-menu">
-                <li><a href="./index.html" class="mobile-nav-link">Home</a></li>
-                <li><a href="tutorials/index.html" class="mobile-nav-link">Tutorials</a></li>
-				<li><a href="blog/index.html" class="mobile-nav-link">Blog</a></li>
-                <li><a href="tutorials/sql-basics/introduction/index.html" class="mobile-nav-link">SQL Basics</a></li>
-				<li><a href="ebook/index.html" class="mobile-nav-link">Ebooks</a></li>
-				<li><a href="/about/about.html" class="mobile-nav-link">About</a></li>
-
+                <li><a href="/index.html" class="mobile-nav-link">Home</a></li>
+  <li><a href="/tutorials/index.html" class="mobile-nav-link">Tutorials</a></li>
+  <li><a href="/blog/index.html" class="mobile-nav-link">Blog</a></li>
+  <li><a href="/tutorials/sql-basics/introduction/index.html" class="mobile-nav-link">SQL Basics</a></li>
+  <li><a href="/ebook/index.html" class="mobile-nav-link">Ebooks</a></li>
+  <li><a href="/about/about.html" class="mobile-nav-link">About</a></li>
                
                 
             </ul>
