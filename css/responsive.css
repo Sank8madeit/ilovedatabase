@@ -1,19 +1,6 @@
 /* Responsive Design Styles */
 
 
-/* Mobile fix: move sidebar above content */
-@media (max-width: 768px) {
-  .tutorial-layout {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .tutorial-sidebar {
-    order: -1; /* Sidebar appears before content */
-    margin-bottom: 1.5rem;
-  }
-}
-
 
 /* Large Desktop - 1200px and up */
 @media (min-width: 1200px) {
@@ -503,4 +490,20 @@ table {
         padding: 0.625rem 1rem;
         font-size: 0.875rem;
     }
+
 }
+
+
+/* Mobile fix: move sidebar above content */
+@media (max-width: 768px) {
+  .tutorial-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tutorial-sidebar {
+    order: -1; /* Sidebar appears before content */
+    margin-bottom: 1.5rem;
+  }
+}
+
