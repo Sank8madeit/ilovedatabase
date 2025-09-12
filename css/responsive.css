@@ -508,3 +508,12 @@ font-size: 0.875rem;
 }
 
 
+/* Fix: Keep sidebar above content on mobile */
+@media (max-width: 991px) {
+  .tutorial-sidebar {
+    order: 1 !important;
+  }
+  .tutorial-content {
+    order: 2 !important;
+  }
+}
