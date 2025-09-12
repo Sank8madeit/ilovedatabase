@@ -494,16 +494,13 @@ table {
 }
 
 
-/* Mobile fix: move sidebar above content */
-@media (max-width: 768px) {
-  .tutorial-layout {
-    display: flex;
-    flex-direction: column;
-  }
-
+/* Fix: Keep sidebar above content on mobile */
+@media (max-width: 991px) {
   .tutorial-sidebar {
-    order: -1; /* Sidebar appears before content */
-    margin-bottom: 1.5rem;
+    order: 1 !important;
+  }
+  .tutorial-content {
+    order: 2 !important;
   }
 }
 
