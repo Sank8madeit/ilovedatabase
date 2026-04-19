@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4WJPXKKQT0');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Data Warehouse Architecture: Star Schema vs Data Vault | ilovedatabase</title>
+    <meta name="description" content="Modern Data Warehouse Architecture: Star Schema vs Data Vault - ilovedatabase comprehensive guide">
+    <link rel="canonical" href="https://ilovedatabase.com/blog/modern-data-warehouse-architecture/">
+    <meta property="og:title" content="Modern Data Warehouse Architecture: Star Schema vs Data Vault">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ilovedatabase.com/blog/modern-data-warehouse-architecture/">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Modern Data Warehouse Architecture: Star Schema vs Data Vault","datePublished":"January 8, 2025","publisher":{"@type":"Organization","name":"ilovedatabase"}}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/blog.css">
+    <style>
+      .post-hero{width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:2rem}
+      .post-body{max-width:780px;margin:0 auto;line-height:1.8}
+      .post-body h2{font-size:1.6rem;margin:2rem 0 1rem;color:var(--text-primary)}
+      .post-body h3{font-size:1.2rem;margin:1.5rem 0 .75rem;color:var(--text-primary)}
+      .post-body p,.post-body li{color:var(--text-secondary);margin-bottom:1rem}
+      .post-body pre{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:1.25rem;overflow-x:auto;margin-bottom:1.5rem}
+      .post-body code{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#2563eb}
+      .post-body pre code{color:var(--text-primary)}
+      .post-body ul,.post-body ol{margin:1rem 0 1.5rem 1.5rem}
+      .back-link{display:inline-flex;align-items:center;gap:.5rem;color:#2563eb;text-decoration:none;font-weight:500;margin-bottom:1.5rem}
+      .article-meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--text-muted);font-size:.875rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-color)}
+      .breadcrumb{font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem}
+      .breadcrumb a{color:#2563eb;text-decoration:none}
+      .tip-box{background:#eff6ff;border-left:4px solid #2563eb;padding:1rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0}
+      [data-theme="dark"] .tip-box{background:#1e293b}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo"><a href="../../index.html" class="logo-link"><i class="fas fa-database"></i><span>ilovedatabase</span></a></div>
+            <nav class="top-nav">
+                <ul class="nav-menu">
+                    <li><a href="../../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../../tutorials/index.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="../../blog/index.html" class="nav-link active">Blog</a></li>
+                    <li><a href="../../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    <li><a href="../../about/about.html" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+                <button class="menu-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <a href="../../blog/index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../../blog/index.html">Blog</a> › Data Warehousing</nav>
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80" alt="Data Warehouse Architecture" class="post-hero" loading="eager">
+            <div class="post-body">
+                <div class="article-meta">
+                    <span><i class="fas fa-tag"></i> Data Warehousing</span>
+                    <span><i class="fas fa-calendar"></i> January 8, 2025</span>
+                    <span><i class="fas fa-clock"></i> 9 min read</span>
+                </div>
+                <h1>Modern Data Warehouse Architecture: Star Schema vs Data Vault</h1>
+                <p>Choosing the right data warehouse modeling approach can make or break your analytics platform. The three main contenders — Star Schema, Snowflake Schema, and Data Vault — each have distinct tradeoffs.</p>
+  <h2>Star Schema: Simple and Fast</h2>
+  <p>Star schema is the classic approach: one fact table surrounded by dimension tables. It is optimized for query performance and is easy for business analysts to understand.</p>
+  <pre><code>-- Fact table
+CREATE TABLE fact_sales (
+    sale_id BIGINT,
+    date_key INT REFERENCES dim_date(date_key),
+    product_key INT REFERENCES dim_product(product_key),
+    customer_key INT REFERENCES dim_customer(customer_key),
+    quantity INT,
+    revenue DECIMAL(12,2)
+);
+
+-- Dimension table
+CREATE TABLE dim_product (
+    product_key INT PRIMARY KEY,
+    product_name VARCHAR(200),
+    category VARCHAR(100),
+    brand VARCHAR(100)
+);</code></pre>
+  <h2>Data Vault: Auditable and Scalable</h2>
+  <p>Data Vault separates business keys (Hubs), relationships (Links), and descriptive data (Satellites). It excels at auditability, historical tracking, and handling multiple source systems.</p>
+  <pre><code>-- Hub: core business entity
+CREATE TABLE hub_customer (
+    hub_customer_key BIGINT PRIMARY KEY,
+    customer_id VARCHAR(50) NOT NULL, -- business key
+    load_date TIMESTAMP,
+    record_source VARCHAR(100)
+);
+
+-- Satellite: historical attributes
+CREATE TABLE sat_customer_details (
+    hub_customer_key BIGINT,
+    load_date TIMESTAMP,
+    name VARCHAR(200),
+    email VARCHAR(200),
+    PRIMARY KEY (hub_customer_key, load_date)
+);</code></pre>
+  <h2>When to Use Each</h2>
+  <ul>
+    <li><strong>Star Schema:</strong> Single source of truth, stable business rules, self-service BI priority</li>
+    <li><strong>Snowflake Schema:</strong> Large dimensions with many attributes, storage is a concern</li>
+    <li><strong>Data Vault:</strong> Multiple source systems, strict audit requirements, agile development</li>
+  </ul>
+  <div class="tip-box"><strong>💡 Modern approach:</strong> Many teams use Data Vault for the raw/staging layer and star schema for the presentation layer (business mart). Best of both worlds.</div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>ilovedatabase</h3><p>Your comprehensive resource for mastering database concepts.</p></div>
+                <div class="footer-section"><h4>Blog</h4><ul><li><a href="../../blog/index.html">All Articles</a></li><li><a href="../../contact/contact.html">Contact</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 ilovedatabase. All rights reserved.</p></div>
+        </div>
+    </footer>
+    <script src="../../js/main.js"></script>
+</body>
+</html>

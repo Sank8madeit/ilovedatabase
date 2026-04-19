@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4WJPXKKQT0');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Best Practices for Production Applications | ilovedatabase</title>
+    <meta name="description" content="MongoDB Best Practices for Production Applications - ilovedatabase comprehensive guide">
+    <link rel="canonical" href="https://ilovedatabase.com/blog/mongodb-best-practices-2024/">
+    <meta property="og:title" content="MongoDB Best Practices for Production Applications">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ilovedatabase.com/blog/mongodb-best-practices-2024/">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"MongoDB Best Practices for Production Applications","datePublished":"January 10, 2025","publisher":{"@type":"Organization","name":"ilovedatabase"}}</script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <link rel="stylesheet" href="../../css/blog.css">
+    <style>
+      .post-hero{width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:2rem}
+      .post-body{max-width:780px;margin:0 auto;line-height:1.8}
+      .post-body h2{font-size:1.6rem;margin:2rem 0 1rem;color:var(--text-primary)}
+      .post-body h3{font-size:1.2rem;margin:1.5rem 0 .75rem;color:var(--text-primary)}
+      .post-body p,.post-body li{color:var(--text-secondary);margin-bottom:1rem}
+      .post-body pre{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:1.25rem;overflow-x:auto;margin-bottom:1.5rem}
+      .post-body code{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#2563eb}
+      .post-body pre code{color:var(--text-primary)}
+      .post-body ul,.post-body ol{margin:1rem 0 1.5rem 1.5rem}
+      .back-link{display:inline-flex;align-items:center;gap:.5rem;color:#2563eb;text-decoration:none;font-weight:500;margin-bottom:1.5rem}
+      .article-meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--text-muted);font-size:.875rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-color)}
+      .breadcrumb{font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem}
+      .breadcrumb a{color:#2563eb;text-decoration:none}
+      .tip-box{background:#eff6ff;border-left:4px solid #2563eb;padding:1rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0}
+      [data-theme="dark"] .tip-box{background:#1e293b}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo"><a href="../../index.html" class="logo-link"><i class="fas fa-database"></i><span>ilovedatabase</span></a></div>
+            <nav class="top-nav">
+                <ul class="nav-menu">
+                    <li><a href="../../index.html" class="nav-link">Home</a></li>
+                    <li><a href="../../tutorials/index.html" class="nav-link">Tutorials</a></li>
+                    <li><a href="../../blog/index.html" class="nav-link active">Blog</a></li>
+                    <li><a href="../../ebook/index.html" class="nav-link">Ebooks</a></li>
+                    <li><a href="../../about/about.html" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" aria-label="Toggle dark mode"><i class="fas fa-moon"></i></button>
+                <button class="menu-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <div class="container">
+            <a href="../../blog/index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../../index.html">Home</a> › <a href="../../blog/index.html">Blog</a> › NoSQL</nav>
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&q=80" alt="MongoDB" class="post-hero" loading="eager">
+            <div class="post-body">
+                <div class="article-meta">
+                    <span><i class="fas fa-tag"></i> NoSQL</span>
+                    <span><i class="fas fa-calendar"></i> January 10, 2025</span>
+                    <span><i class="fas fa-clock"></i> 7 min read</span>
+                </div>
+                <h1>MongoDB Best Practices for Production Applications</h1>
+                <p>Running MongoDB in production requires careful attention to schema design, indexing, and operational concerns. Here are the essential practices every team should follow.</p>
+  <h2>1. Schema Design: Embed vs. Reference</h2>
+  <p>MongoDB gives you flexibility but also responsibility. The golden rule: embed data that is always accessed together, reference data that is accessed independently.</p>
+  <pre><code>// ✅ Embed: order items always shown with order
+{
+  _id: ObjectId(),
+  customer_id: ObjectId("..."),
+  created_at: ISODate(),
+  items: [
+    { product_id: ObjectId(), name: "Widget", qty: 2, price: 29.99 }
+  ],
+  total: 59.98
+}
+
+// ✅ Reference: products accessed separately
+{
+  _id: ObjectId(),
+  name: "Widget",
+  price: 29.99,
+  inventory: 500
+}</code></pre>
+  <h2>2. Always Use Compound Indexes for Sort + Filter</h2>
+  <pre><code>// Query: find active users, sort by last login
+db.users.createIndex({ status: 1, last_login: -1 });
+
+// Explain to verify index is used
+db.users.find({ status: "active" })
+        .sort({ last_login: -1 })
+        .explain("executionStats");</code></pre>
+  <div class="tip-box"><strong>💡 Rule of thumb:</strong> Follow the ESR rule — Equality fields first, Sort fields second, Range fields last.</div>
+  <h2>3. Set Write Concern and Read Preference Intentionally</h2>
+  <pre><code>// High-durability writes (financial data)
+db.transactions.insertOne(doc, { writeConcern: { w: "majority", j: true } });
+
+// Allow reads from secondaries for analytics
+db.reports.find(query).readPref("secondaryPreferred");</code></pre>
+  <h2>4. Enable WiredTiger Compression</h2>
+  <p>WiredTiger (MongoDB default storage engine) supports snappy and zlib compression. Enable zlib for maximum space savings on large collections at the cost of slightly more CPU.</p>
+  <h2>5. Monitor with Atlas or Ops Manager</h2>
+  <p>Always enable slow query logging and set <code>slowOpThresholdMs</code> to 100ms. Review the Query Profiler weekly to catch regressions before users do.</p>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>ilovedatabase</h3><p>Your comprehensive resource for mastering database concepts.</p></div>
+                <div class="footer-section"><h4>Blog</h4><ul><li><a href="../../blog/index.html">All Articles</a></li><li><a href="../../contact/contact.html">Contact</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2025 ilovedatabase. All rights reserved.</p></div>
+        </div>
+    </footer>
+    <script src="../../js/main.js"></script>
+</body>
+</html>
