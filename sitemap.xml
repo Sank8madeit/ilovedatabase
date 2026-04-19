@@ -1,92 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+              http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <!-- Core Pages -->
+  <url><loc>https://ilovedatabase.com/</loc><lastmod>2025-04-19</lastmod><changefreq>weekly</changefreq><priority>1.00</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/</loc><lastmod>2025-04-19</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/</loc><lastmod>2025-04-19</lastmod><changefreq>weekly</changefreq><priority>0.90</priority></url>
+  <url><loc>https://ilovedatabase.com/ebook/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/about/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://ilovedatabase.com/contact/</loc><lastmod>2025-04-19</lastmod><changefreq>yearly</changefreq><priority>0.60</priority></url>
 
-<url>
-  <loc>https://ilovedatabase.com/</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>1.00</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/tutorials/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/blog/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/ebook/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/tutorials/sql-basics/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/database_design/advanced_sql.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/nosql/nosql.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/cloud-databases/cloud.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/database_design/index.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/etl_dw/etl_dw.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/about/about.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/contact/contact.html</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/blog/</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/tutorials/sql-basics/</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
-<url>
-  <loc>https://ilovedatabase.com/tutorials/</loc>
-  <lastmod>2025-09-05T11:30:35+00:00</lastmod>
-  <priority>0.64</priority>
-</url>
+  <!-- Learning Sections -->
+  <url><loc>https://ilovedatabase.com/nosql/nosql.html</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/cloud-databases/cloud.html</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/database_design/index.html</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/etl_dw/etl_dw.html</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/advanced_sql/advanced_sql.html</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/sql_cheat_sheet/</loc><lastmod>2025-04-19</lastmod><changefreq>yearly</changefreq><priority>0.75</priority></url>
 
+  <!-- SQL Tutorials -->
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/introduction/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/basic-select/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/filtering-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/joins/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/grouping-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/aggregate-functions/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/subqueries/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/sorting-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/insert-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/update-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/delete-data/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://ilovedatabase.com/tutorials/sql-basics/practice-exercises/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+
+  <!-- Blog Posts -->
+  <url><loc>https://ilovedatabase.com/blog/sql-performance-optimization-guide/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/bigquery-vs-snowflake-comparison/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/mongodb-best-practices-2024/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/modern-data-warehouse-architecture/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/mastering-sql-window-functions/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/database-security-best-practices/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/real-time-analytics-architecture/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/sql-joins-explained/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/database-normalization-guide/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://ilovedatabase.com/blog/choosing-right-database/</loc><lastmod>2025-04-19</lastmod><changefreq>monthly</changefreq><priority>0.75</priority></url>
 
 </urlset>

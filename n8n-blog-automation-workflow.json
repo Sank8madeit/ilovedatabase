@@ -1,0 +1,277 @@
+{
+  "name": "ilovedatabase - Weekly Blog Auto-Publisher",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "trigger-weekly",
+      "name": "Every Monday 9am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $credentials.anthropicApiKey }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-opus-4-6\",\n  \"max_tokens\": 4096,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are a database expert writing for ilovedatabase.com. Today is {{ $now.format('MMMM D, YYYY') }}.\\n\\nGenerate a comprehensive, SEO-optimized blog post about a TRENDING database topic from the past week. Choose from: PostgreSQL 17 new features, DuckDB analytics, vector databases for AI, Redis 8.0, TimescaleDB, database migrations best practices, SQL for data scientists, ClickHouse vs BigQuery, database sharding strategies, or a similar hot topic.\\n\\nRespond ONLY with valid JSON in this exact structure (no markdown, no backticks):\\n{\\n  \\\"slug\\\": \\\"url-friendly-slug-max-5-words\\\",\\n  \\\"title\\\": \\\"Full SEO Title Here\\\",\\n  \\\"category\\\": \\\"One of: SQL / NoSQL / Performance / Cloud Databases / Data Warehousing / Security / Analytics\\\",\\n  \\\"readTime\\\": 8,\\n  \\\"metaDescription\\\": \\\"155 char max SEO meta description\\\",\\n  \\\"keywords\\\": \\\"keyword1, keyword2, keyword3, keyword4, keyword5\\\",\\n  \\\"heroImageQuery\\\": \\\"unsplash search term for cover image\\\",\\n  \\\"intro\\\": \\\"2-3 sentence compelling intro paragraph\\\",\\n  \\\"sections\\\": [\\n    {\\n      \\\"h2\\\": \\\"Section Heading\\\",\\n      \\\"body\\\": \\\"Section content with HTML. Use <pre><code> for SQL examples, <ul><li> for lists, <p> for paragraphs.\\\",\\n      \\\"codeExample\\\": \\\"Optional SQL/code block content (plain text, no HTML tags)\\\",\\n      \\\"tip\\\": \\\"Optional pro tip text\\\"\\n    }\\n  ],\\n  \\\"conclusion\\\": \\\"Concluding paragraph with call to action\\\"\\n}\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "generate-content",
+      "name": "Generate Blog Post (Claude AI)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "anthropic-creds",
+          "name": "Anthropic API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the Claude API response\nconst response = $input.first().json;\nconst rawText = response.content[0].text;\n\nlet post;\ntry {\n  post = JSON.parse(rawText);\n} catch(e) {\n  // Try to extract JSON if wrapped in code blocks\n  const match = rawText.match(/\\{[\\s\\S]*\\}/);\n  if (match) {\n    post = JSON.parse(match[0]);\n  } else {\n    throw new Error('Could not parse Claude response as JSON: ' + rawText.substring(0, 200));\n  }\n}\n\n// Validate required fields\nconst required = ['slug', 'title', 'category', 'sections', 'intro'];\nfor (const field of required) {\n  if (!post[field]) throw new Error(`Missing required field: ${field}`);\n}\n\n// Format date\nconst now = new Date();\nconst dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });\nconst isoDate = now.toISOString().split('T')[0];\n\n// Build sections HTML\nlet sectionsHTML = '';\nfor (const section of post.sections) {\n  sectionsHTML += `<h2>${section.h2}</h2>\\n`;\n  sectionsHTML += `<p>${section.body}</p>\\n`;\n  if (section.codeExample) {\n    sectionsHTML += `<pre><code>${section.codeExample.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>\\n`;\n  }\n  if (section.tip) {\n    sectionsHTML += `<div class=\"tip-box\"><strong>💡 Pro Tip:</strong> ${section.tip}</div>\\n`;\n  }\n}\n\n// Unsplash image URL\nconst imgQuery = encodeURIComponent(post.heroImageQuery || 'database technology');\nconst heroImg = `https://source.unsplash.com/1200x420/?${imgQuery}`;\n\n// Build the full HTML page\nconst html = `<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<script async src=\"https://www.googletagmanager.com/gtag/js?id=G-4WJPXKKQT0\"></script>\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4WJPXKKQT0');</script>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>${post.title} | ilovedatabase</title>\n<meta name=\"description\" content=\"${post.metaDescription || post.title}\">\n<meta name=\"keywords\" content=\"${post.keywords || ''}\">\n<meta name=\"author\" content=\"ilovedatabase\">\n<link rel=\"canonical\" href=\"https://ilovedatabase.com/blog/${post.slug}/\">\n<meta property=\"og:title\" content=\"${post.title}\">\n<meta property=\"og:description\" content=\"${post.metaDescription || post.title}\">\n<meta property=\"og:type\" content=\"article\">\n<meta property=\"og:url\" content=\"https://ilovedatabase.com/blog/${post.slug}/\">\n<meta property=\"og:image\" content=\"${heroImg}\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"robots\" content=\"index, follow\">\n<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"Article\",\"headline\":\"${post.title}\",\"description\":\"${post.metaDescription || ''}\",\"datePublished\":\"${isoDate}\",\"publisher\":{\"@type\":\"Organization\",\"name\":\"ilovedatabase\",\"url\":\"https://ilovedatabase.com\"}}</script>\n<link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap\" rel=\"stylesheet\">\n<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css\">\n<link rel=\"stylesheet\" href=\"../../css/main.css\">\n<link rel=\"stylesheet\" href=\"../../css/responsive.css\">\n<link rel=\"stylesheet\" href=\"../../css/blog.css\">\n<style>\n.post-hero{width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:2rem}\n.post-body{max-width:780px;margin:0 auto;line-height:1.8}\n.post-body h2{font-size:1.6rem;margin:2rem 0 1rem;color:var(--text-primary)}\n.post-body h3{font-size:1.2rem;margin:1.5rem 0 .75rem;color:var(--text-primary)}\n.post-body p,.post-body li{color:var(--text-secondary);margin-bottom:1rem}\n.post-body pre{background:var(--bg-secondary);border:1px solid var(--border-color);border-radius:8px;padding:1.25rem;overflow-x:auto;margin-bottom:1.5rem}\n.post-body code{font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#2563eb}\n.post-body pre code{color:var(--text-primary)}\n.post-body ul,.post-body ol{margin:1rem 0 1.5rem 1.5rem}\n.back-link{display:inline-flex;align-items:center;gap:.5rem;color:#2563eb;text-decoration:none;font-weight:500;margin-bottom:1.5rem}\n.article-meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--text-muted);font-size:.875rem;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-color)}\n.breadcrumb{font-size:.875rem;color:var(--text-muted);margin-bottom:1.5rem}\n.breadcrumb a{color:#2563eb;text-decoration:none}\n.tip-box{background:#eff6ff;border-left:4px solid #2563eb;padding:1rem 1.5rem;border-radius:0 8px 8px 0;margin:1.5rem 0}\n[data-theme=\"dark\"] .tip-box{background:#1e293b}\n</style>\n</head>\n<body>\n<header class=\"header\">\n  <div class=\"header-container\">\n    <div class=\"logo\"><a href=\"../../index.html\" class=\"logo-link\"><i class=\"fas fa-database\"></i><span>ilovedatabase</span></a></div>\n    <nav class=\"top-nav\"><ul class=\"nav-menu\">\n      <li><a href=\"../../index.html\" class=\"nav-link\">Home</a></li>\n      <li><a href=\"../../tutorials/index.html\" class=\"nav-link\">Tutorials</a></li>\n      <li><a href=\"../../blog/index.html\" class=\"nav-link active\">Blog</a></li>\n      <li><a href=\"../../ebook/index.html\" class=\"nav-link\">Ebooks</a></li>\n      <li><a href=\"../../about/about.html\" class=\"nav-link\">About</a></li>\n    </ul></nav>\n    <div class=\"header-actions\">\n      <button class=\"theme-toggle\" aria-label=\"Toggle dark mode\"><i class=\"fas fa-moon\"></i></button>\n      <button class=\"menu-toggle\" aria-label=\"Toggle menu\"><i class=\"fas fa-bars\"></i></button>\n    </div>\n  </div>\n</header>\n<main class=\"main-content\">\n  <div class=\"container\">\n    <a href=\"../../blog/index.html\" class=\"back-link\"><i class=\"fas fa-arrow-left\"></i> Back to Blog</a>\n    <nav class=\"breadcrumb\" aria-label=\"Breadcrumb\"><a href=\"../../index.html\">Home</a> › <a href=\"../../blog/index.html\">Blog</a> › ${post.category}</nav>\n    <img src=\"${heroImg}\" alt=\"${post.title}\" class=\"post-hero\" loading=\"eager\" onerror=\"this.src='https://images.unsplash.com/photo-1544383835-bda2bc66a55d?w=1200&q=80'\">\n    <div class=\"post-body\">\n      <div class=\"article-meta\">\n        <span><i class=\"fas fa-tag\"></i> ${post.category}</span>\n        <span><i class=\"fas fa-calendar\"></i> ${dateStr}</span>\n        <span><i class=\"fas fa-clock\"></i> ${post.readTime || 8} min read</span>\n      </div>\n      <h1>${post.title}</h1>\n      <p>${post.intro}</p>\n      ${sectionsHTML}\n      <p><strong>Conclusion:</strong> ${post.conclusion || ''}</p>\n      <p>Want to learn more? Explore our <a href=\"../../tutorials/index.html\">free SQL tutorials</a> or <a href=\"../../blog/index.html\">browse the blog</a> for more database content.</p>\n    </div>\n  </div>\n</main>\n<footer class=\"footer\">\n  <div class=\"container\">\n    <div class=\"footer-content\">\n      <div class=\"footer-section\"><h3>ilovedatabase</h3><p>Your comprehensive resource for mastering database concepts and technologies.</p></div>\n      <div class=\"footer-section\"><h4>Blog</h4><ul><li><a href=\"../../blog/index.html\">All Articles</a></li><li><a href=\"../../contact/contact.html\">Contact</a></li></ul></div>\n    </div>\n    <div class=\"footer-bottom\"><p>&copy; 2025 ilovedatabase. All rights reserved.</p></div>\n  </div>\n</footer>\n<script src=\"../../js/main.js\"></script>\n</body>\n</html>`;\n\nreturn [\n  {\n    json: {\n      slug: post.slug,\n      title: post.title,\n      category: post.category,\n      date: isoDate,\n      dateFormatted: dateStr,\n      html: html,\n      filePath: `blog/${post.slug}/index.html`,\n      metaDescription: post.metaDescription\n    }\n  }\n];"
+      },
+      "id": "build-html",
+      "name": "Build HTML Page",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build the blog index update data\nconst post = $input.first().json;\n\n// This node outputs the new post card HTML to be prepended to blog/index.html\nconst newCardHTML = `\n<!-- AUTO-GENERATED POST: ${post.date} -->\n<article class=\"post-card\" data-auto-generated=\"true\">\n  <div class=\"post-image\">\n    <img src=\"https://source.unsplash.com/500x300/?database\" alt=\"${post.title}\" loading=\"lazy\">\n  </div>\n  <div class=\"post-content\">\n    <div class=\"post-meta\">\n      <span class=\"category\">${post.category}</span>\n      <time datetime=\"${post.date}\">${post.dateFormatted}</time>\n    </div>\n    <h3 class=\"post-title\">\n      <a href=\"/blog/${post.slug}/\">${post.title}</a>\n    </h3>\n    <p class=\"post-excerpt\">${post.metaDescription}</p>\n    <div class=\"post-stats\">\n      <span><i class=\"fas fa-clock\"></i> 8 min read</span>\n      <span><i class=\"fas fa-star\"></i> New</span>\n    </div>\n  </div>\n</article>`;\n\nreturn [\n  {\n    json: {\n      ...post,\n      blogCardHTML: newCardHTML\n    }\n  }\n];"
+      },
+      "id": "prep-index-update",
+      "name": "Prepare Blog Index Card",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 300]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "upload",
+        "driveId": {
+          "mode": "list",
+          "value": "MyDrive"
+        },
+        "folderId": {
+          "mode": "id",
+          "value": "={{ $vars.GDRIVE_BLOG_FOLDER_ID }}"
+        },
+        "name": "={{ $json.slug }}-{{ $json.date }}.html",
+        "inputDataFieldName": "data",
+        "options": {
+          "simplifyOutput": true
+        }
+      },
+      "id": "save-to-gdrive",
+      "name": "Save Post to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [1200, 180],
+      "notes": "Saves the generated HTML to a Google Drive folder for review before deployment. Set GDRIVE_BLOG_FOLDER_ID variable in n8n settings."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare binary HTML data for Google Drive upload\nconst post = $input.first().json;\n\n// Convert HTML string to binary\nconst htmlBuffer = Buffer.from(post.html, 'utf-8');\n\nreturn [\n  {\n    json: post,\n    binary: {\n      data: {\n        data: htmlBuffer.toString('base64'),\n        mimeType: 'text/html',\n        fileName: `${post.slug}-${post.date}.html`\n      }\n    }\n  }\n];"
+      },
+      "id": "prep-binary",
+      "name": "Prepare File for Upload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1200, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $vars.GITHUB_API_URL || 'https://api.github.com/repos/YOUR_USERNAME/ilovedatabase/contents/blog/' + $json.slug + '/index.html' }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "token {{ $vars.GITHUB_TOKEN }}" },
+            { "name": "Accept", "value": "application/vnd.github.v3+json" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": \"Auto-publish: {{ $json.title }} ({{ $json.date }})\",\n  \"content\": \"{{ Buffer.from($json.html).toString('base64') }}\",\n  \"branch\": \"main\"\n}",
+        "options": {}
+      },
+      "id": "deploy-github",
+      "name": "Deploy to GitHub Pages",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1440, 300],
+      "notes": "Pushes the new blog post directly to GitHub Pages via API. Requires GITHUB_TOKEN and repo access. GitHub Actions will auto-deploy."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "x-api-key", "value": "={{ $credentials.anthropicApiKey }}" },
+            { "name": "anthropic-version", "value": "2023-06-01" }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-opus-4-6\",\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write 3 social media posts to promote this database blog article. Article title: '{{ $json.title }}'. URL: https://ilovedatabase.com/blog/{{ $json.slug }}/\\n\\nProvide:\\n1. Twitter/X post (280 chars max, include hashtags)\\n2. LinkedIn post (professional tone, 150 words max)\\n3. Instagram caption (engaging, with emoji, relevant hashtags)\\n\\nRespond as JSON: {\\\"twitter\\\": \\\"...\\\", \\\"linkedin\\\": \\\"...\\\", \\\"instagram\\\": \\\"...\\\"}\"\n    }\n  ]\n}"
+      },
+      "id": "generate-social",
+      "name": "Generate Social Media Posts",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1200, 420],
+      "notes": "Generates Twitter, LinkedIn, and Instagram posts for the new article"
+    },
+    {
+      "parameters": {
+        "jsCode": "const apiResponse = $input.first().json;\nconst rawText = apiResponse.content[0].text;\n\nlet social;\ntry {\n  social = JSON.parse(rawText);\n} catch(e) {\n  const match = rawText.match(/\\{[\\s\\S]*\\}/);\n  social = match ? JSON.parse(match[0]) : { twitter: rawText, linkedin: rawText, instagram: rawText };\n}\n\n// Get the post data from earlier in the workflow\nconst postSlug = $('Build HTML Page').first().json.slug;\nconst postTitle = $('Build HTML Page').first().json.title;\n\nreturn [\n  {\n    json: {\n      twitter: social.twitter,\n      linkedin: social.linkedin,\n      instagram: social.instagram,\n      postTitle,\n      postSlug,\n      postUrl: `https://ilovedatabase.com/blog/${postSlug}/`\n    }\n  }\n];"
+      },
+      "id": "parse-social",
+      "name": "Parse Social Posts",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1440, 420]
+    },
+    {
+      "parameters": {
+        "fromEmail": "noreply@ilovedatabase.com",
+        "toEmail": "={{ $vars.ADMIN_EMAIL || 'admin@ilovedatabase.com' }}",
+        "subject": "=✅ New Blog Post Published: {{ $('Build HTML Page').first().json.title }}",
+        "emailFormat": "html",
+        "message": "=<h2>New Blog Post Auto-Published! 🎉</h2>\n<p><strong>Title:</strong> {{ $('Build HTML Page').first().json.title }}</p>\n<p><strong>Category:</strong> {{ $('Build HTML Page').first().json.category }}</p>\n<p><strong>Date:</strong> {{ $('Build HTML Page').first().json.dateFormatted }}</p>\n<p><strong>URL:</strong> <a href=\"https://ilovedatabase.com/blog/{{ $('Build HTML Page').first().json.slug }}/\">View Post</a></p>\n<hr>\n<h3>Social Media Drafts</h3>\n<p><strong>Twitter/X:</strong></p>\n<blockquote>{{ $json.twitter }}</blockquote>\n<p><strong>LinkedIn:</strong></p>\n<blockquote>{{ $json.linkedin }}</blockquote>\n<p><strong>Instagram:</strong></p>\n<blockquote>{{ $json.instagram }}</blockquote>\n<hr>\n<p><small>Generated by n8n Blog Automation Workflow | <a href=\"https://ilovedatabase.com/blog/\">View All Posts</a></small></p>"
+      },
+      "id": "send-notification",
+      "name": "Email Admin Notification",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1680, 360],
+      "notes": "Sends email with the new post details + social media copy ready to paste. Configure SMTP credentials in n8n."
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "check-success",
+              "leftValue": "={{ $json.slug }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-valid",
+      "name": "Validate Post Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 140]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log error and alert\nconst error = $input.first().json;\nconsole.error('Blog generation failed:', JSON.stringify(error));\nreturn [{ json: { error: 'Blog post generation failed', details: error, timestamp: new Date().toISOString() } }];"
+      },
+      "id": "error-handler",
+      "name": "Error Handler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 460],
+      "notes": "Catches errors in the workflow and logs them"
+    }
+  ],
+  "connections": {
+    "Every Monday 9am": {
+      "main": [[{ "node": "Generate Blog Post (Claude AI)", "type": "main", "index": 0 }]]
+    },
+    "Generate Blog Post (Claude AI)": {
+      "main": [[{ "node": "Build HTML Page", "type": "main", "index": 0 }]]
+    },
+    "Build HTML Page": {
+      "main": [
+        [{ "node": "Validate Post Data", "type": "main", "index": 0 }],
+        [{ "node": "Generate Social Media Posts", "type": "main", "index": 0 }]
+      ]
+    },
+    "Validate Post Data": {
+      "main": [
+        [{ "node": "Prepare Blog Index Card", "type": "main", "index": 0 }],
+        [{ "node": "Error Handler", "type": "main", "index": 0 }]
+      ]
+    },
+    "Prepare Blog Index Card": {
+      "main": [[{ "node": "Prepare File for Upload", "type": "main", "index": 0 }]]
+    },
+    "Prepare File for Upload": {
+      "main": [
+        [{ "node": "Deploy to GitHub Pages", "type": "main", "index": 0 }],
+        [{ "node": "Save Post to Google Drive", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Social Media Posts": {
+      "main": [[{ "node": "Parse Social Posts", "type": "main", "index": 0 }]]
+    },
+    "Parse Social Posts": {
+      "main": [[{ "node": "Email Admin Notification", "type": "main", "index": 0 }]]
+    },
+    "Deploy to GitHub Pages": {
+      "main": [[{ "node": "Email Admin Notification", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "error-handler"
+  },
+  "staticData": null,
+  "tags": ["blog", "automation", "seo", "ilovedatabase"],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-19T00:00:00.000Z",
+  "versionId": "1"
+}
